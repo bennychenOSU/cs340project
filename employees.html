@@ -29,46 +29,49 @@
           <td>Cashier</td>
         </tr>
       </table>
+
+      <div id="insert">
+        <form method="POST" id="addEmployee">
+            <legend><strong>Add Employee</strong></legend>
+              <fieldset class="fields">
+                <label> Employee Name </label> <input type="text" name="employeeName">
+                <label> Title </label> <input type="text" name="title">
+          </fieldset>
+              <input class="btn" type="submit" id="addEmployee" value="Add Employee">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update">
+        <form method="POST" id="employeeUpdate">
+            <legend><strong>Update Employee</strong></legend>
+              <fieldset class="fields">
+              <input type="hidden" name="employeeID" id="updateEmployeeID" value="1">
+              <label> ID: </label> 1
+                <label> Employee Name </label> <input type="text" name="employeeName">
+                <label> Title </label> <input type="text" name="title">
+          </fieldset>
+              <input class="btn" type="submit" id="UpdateEmployee" value="Update Employee">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- update -->
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+      <form method="POST" id="deleteEmployee">
+          <legend><strong>Delete Employee</strong></legend>
+              <fieldset class="fields">
+              <p>Are you sure you wish to delete the following employee?</p>
+              <input type="hidden" name="employeeID" id="deleteEmployeeID" value="1">
+              <label><strong>ID:</strong></label> 1
+            <label> <strong>Name</strong> </label> Josh Smith
+            <label> <strong>Title</strong> </label> Manager
+                
+        </fieldset>
+        <input class="btn" type="submit" id="DeleteEmployee" value="Delete Employee">
+              <input class="btn" type="button" value="cancel">
+      </form> 
+    </div>
 </html>
 
-<div id="insert">
-    <form method="POST" id="addEmployee">
-        <legend><strong>Add Employee</strong></legend>
-          <fieldset class="fields">
-            <label> Employee Name </label> <input type="text" name="employeeName">
-            <label> Title </label> <input type="text" name="title">
-      </fieldset>
-          <input class="btn" type="submit" id="addEmployee" value="Add Employee">
-          <input class="btn" type="button" value="cancel">
-	</form> 
-</div><!-- insert -->
-
-<p>&nbsp;</p>
-<div id="update">
-    <form method="POST" id="employeeUpdate">
-        <legend><strong>Update Employee</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="employeeID" id="updateEmployeeID" value="1">
-          <label> ID: </label> 1
-            <label> Employee Name </label> <input type="text" name="employeeName">
-            <label> Title </label> <input type="text" name="title">
-      </fieldset>
-          <input class="btn" type="submit" id="UpdateSavePerson" value="Save Update Person">
-          <input class="btn" type="button" value="cancel" onClick="browsePeople()">
-	</form> 
-</div><!-- update -->
-<p>&nbsp;</p>
-<div id="delete" style="display: block">
-  <form method="POST" id="deleteEmployee">
-      <legend><strong>Delete Employee</strong></legend>
-          <fieldset class="fields">
-          <p>Are you sure you wish to delete the following employee?</p>
-          <input type="hidden" name="employeeID" id="deleteEmployeeID" value="1">
-          <label><strong>ID:</strong></label> 1
-            <label> <strong>Name</strong> </label> Josh Smith
-            
-    </fieldset>
-    <input class="btn" type="submit" id="DeleteEmployee" value="Delete Employee">
-          <input class="btn" type="button" value="cancel">
-  </form> 
-</div>  
+  

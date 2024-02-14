@@ -51,6 +51,55 @@
         </tr>
 
       </table>
+
+
+      <div id="insert">
+        <form method="POST" id="additem">
+            <legend><strong>Add item</strong></legend>
+              <fieldset class="fields">
+                <label> Category </label> <input type="text" name="category">
+                <label> Brand </label> <input type="text" name="Brand">
+                <label> Price </label> <input type="number" name="price">
+          </fieldset>
+              <input class="btn" type="submit" id="additem" value="Add item">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update">
+        <form method="POST" id="itemUpdate">
+            <legend><strong>Update item</strong></legend>
+              <fieldset class="fields">
+              <input type="hidden" name="itemID" id="updateitemID" value="1">
+              <label> ID: </label> 1
+                <label> Category </label> <input type="text" name="category">
+                <label> Brand </label> <input type="text" name="brand">
+                <label> Price </label> <input type="number" name="price">
+          </fieldset>
+              <input class="btn" type="submit" id="Updateitem" value="Update item">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- update -->
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+      <form method="POST" id="deleteitem">
+          <legend><strong>Delete item</strong></legend>
+              <fieldset class="fields">
+              <p>Are you sure you wish to delete the following item?</p>
+              <input type="hidden" name="itemID" id="deleteitemID" value="1">
+              <label><strong>ID:</strong></label> 1
+            <label> <strong>Category</strong> </label> Electronics
+            <label> <strong>Brand</strong> </label> Sorny
+            <label> <strong>Price</strong> </label> 500
+                
+        </fieldset>
+        <input class="btn" type="submit" id="Deleteitem" value="Delete item">
+              <input class="btn" type="button" value="cancel">
+      </form> 
+    </div>      
+
+      
 </html>
 
   

@@ -50,6 +50,73 @@
             <td>80</td>
         </tr>
       </table>
+
+      <div id="insert">
+        <form method="POST" id="addInventory">
+            <legend><strong>Add Inventory</strong></legend>
+              <fieldset class="fields">
+                <label> Item ID </label> <select name="ItemID">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </select>
+                    <label> Store ID </label> <select name="storeID">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">1 Austin</option>
+                        <option value="2">2 Dallas</option>
+                        <option value="3">3 Houston</option>
+                        </select>
+                <label> Quantity </label> <input type="number" name="quantity">
+          </fieldset>
+              <input class="btn" type="submit" id="addInvetory" value="Add Inventory">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update">
+        <form method="POST" id="StoreUpdate">
+            <legend><strong>Update store</strong></legend>
+              <fieldset class="fields">
+                <label> Item ID </label> <select name="ItemID">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </select>
+                    <label> Store ID </label> <select name="storeID">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">1 Austin</option>
+                        <option value="2">2 Dallas</option>
+                        <option value="3">3 Houston</option>
+                        </select>
+                        <label> Quantity </label> <input type="number" name="quantity">
+          </fieldset>
+              <input class="btn" type="submit" id="UpdateInventory" value="Update inventory">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- update -->
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+      <form method="POST" id="deletestore">
+          <legend><strong>Delete store</strong></legend>
+              <fieldset class="fields">
+              <p>Are you sure you wish to delete the following store?</p>
+              <input type="hidden" name="storeID" id="deletestoreID" value="1">
+              <label><strong>Item ID </strong></label> 1 (Austin Smith)
+            <label> <strong>Store ID</strong> </label> 1 Austin
+            <label> <strong>Quantity</strong> </label> 1500
+                
+        </fieldset>
+        <input class="btn" type="submit" id="DeleteInventory" value="Delete Inventory">
+              <input class="btn" type="button" value="cancel">
+      </form> 
+    </div>
 </html>
 
   

@@ -69,6 +69,110 @@
         </tr>
 
       </table>
+
+      
+      <div id="insert">
+        <form method="POST" id="addSale">
+            <legend><strong>Add Sale</strong></legend>
+              <fieldset class="fields">
+                <input type="hidden" name="saleID" id="updateSaleID" value="1">
+                <label> ID: </label> 1
+                <label> Item ID </label> <select name="ItemID">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </select>
+                    <label> Quantity </label> <input type="number" name="quantity">
+                    <label> Sales Total </label> <input type="number" name="salesTotal">
+                    <label> Employee ID </label> <select name="employeeID">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">Josh Smith</option>
+                        <option value="2">James Russell</option>
+                        <option value="3">Jane Rowling</option>
+                        </select>
+                        <label> Customer ID </label> <select name="customerID">
+                            <option value="0">&nbsp;</option>
+                            <option value="1">Austin Smith</option>
+                            <option value="2">Janet Wong</option>
+                            <option value="3">Chris Simpson</option>
+                            </select>
+                    <label> Store ID </label> <select name="storeID">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">1 Austin</option>
+                        <option value="2">2 Dallas</option>
+                        <option value="3">3 Houston</option>
+                        </select>
+                
+          </fieldset>
+              <input class="btn" type="submit" id="addSale" value="Add Sale">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update">
+        <form method="POST" id="StoreUpdate">
+            <legend><strong>Update store</strong></legend>
+              <fieldset class="fields">
+                <input type="hidden" name="saleID" id="updateSaleID" value="1">
+                <label> ID: </label> 1
+                <label> Item ID </label> <select name="ItemID">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </select>
+                    <label> Quantity </label> <input type="number" name="quantity">
+                    <label> Sales Total </label> <input type="number" name="salesTotal">
+                    <label> Employee ID </label> <select name="employeeID">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">Josh Smith</option>
+                        <option value="2">James Russell</option>
+                        <option value="3">Jane Rowling</option>
+                        </select>
+                        <label> Customer ID </label> <select name="customerID">
+                            <option value="0">&nbsp;</option>
+                            <option value="1">Austin Smith</option>
+                            <option value="2">Janet Wong</option>
+                            <option value="3">Chris Simpson</option>
+                            </select>
+                    <label> Store ID </label> <select name="storeID">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">1 Austin</option>
+                        <option value="2">2 Dallas</option>
+                        <option value="3">3 Houston</option>
+                        </select>
+                
+            </fieldset>
+              <input class="btn" type="submit" id="UpdateSale" value="Update sale">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- update -->
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+      <form method="POST" id="deletesale">
+          <legend><strong>Delete Sale</strong></legend>
+              <fieldset class="fields">
+              <p>Are you sure you wish to delete the following sale?</p>
+              <input type="hidden" name="storeID" id="deleteSaleID" value="1">
+              <label><strong>Sale ID </strong></label> 1
+            <label> <strong>Item ID</strong> </label> 3
+            <label> <strong>Quantity</strong> </label> 7
+            <label> <strong>Sales Total</strong> </label> 28
+            <label> <strong>Employee ID</strong> </label> 2
+            <label> <strong>Customer ID</strong> </label> 2
+            <label> <strong>Store</strong> </label> 2
+                
+        </fieldset>
+        <input class="btn" type="submit" id="DeleteSale" value="Delete Sale">
+              <input class="btn" type="button" value="cancel">
+      </form> 
+    </div>
 </html>
 
   

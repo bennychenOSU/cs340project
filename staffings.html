@@ -43,6 +43,70 @@
           <td>700</td>
         </tr>
       </table>
+
+      
+      <div id="insert">
+        <form method="POST" id="addStaffing">
+            <legend><strong>Add Staffing</strong></legend>
+              <fieldset class="fields">
+                <label> Employee ID </label> <select name="employeeID">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">Josh Smith</option>
+                    <option value="2">James Russell</option>
+                    <option value="3">Jane Rowling</option>
+                    </select>
+                    <label> Store ID </label> <select name="storeID">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">1 Austin</option>
+                        <option value="2">2 Dallas</option>
+                        <option value="3">3 Houston</option>
+                        </select>
+                <label> Hours Worked </label> <input type="number" name="hoursWorked">
+          </fieldset>
+              <input class="btn" type="submit" id="addStaffing" value="Add staffing">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update">
+        <form method="POST" id="StoreUpdate">
+            <legend><strong>Update store</strong></legend>
+              <fieldset class="fields">
+                <label> Employee ID </label> <select name="employeeID">
+                    <option value="0">&nbsp;</option>
+                    <option value="1">Josh Smith</option>
+                    <option value="2">James Russell</option>
+                    <option value="3">Jane Rowling</option>
+                    </select>
+                    <label> Store ID </label> <select name="storeID">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">1 Austin</option>
+                        <option value="2">2 Dallas</option>
+                        <option value="3">3 Houston</option>
+                        </select>
+                        <label> Hours Worked </label> <input type="number" name="hoursWorked">
+          </fieldset>
+              <input class="btn" type="submit" id="UpdateStaffing" value="Update staffing">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- update -->
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+      <form method="POST" id="deletestore">
+          <legend><strong>Delete store</strong></legend>
+              <fieldset class="fields">
+              <p>Are you sure you wish to delete the following store?</p>
+              <input type="hidden" name="storeID" id="deleteStaffingID" value="1">
+              <label><strong>Employee ID </strong></label> 1 (Austin Smith)
+            <label> <strong>Store ID</strong> </label> 1 Austin
+            <label> <strong>Hours Worked</strong> </label> 1500
+                
+        </fieldset>
+        <input class="btn" type="submit" id="DeleteStaffing" value="Delete staffing">
+              <input class="btn" type="button" value="cancel">
+      </form> 
+    </div>
 </html>
 
   

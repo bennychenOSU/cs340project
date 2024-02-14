@@ -29,6 +29,51 @@
           <td>45000</td>
         </tr>
       </table>
+
+      
+      <div id="insert">
+        <form method="POST" id="addstore">
+            <legend><strong>Add store</strong></legend>
+              <fieldset class="fields">
+                <label> City </label> <input type="text" name="storeCity">
+                <label> Size </label> <input type="number" name="storeSize">
+          </fieldset>
+              <input class="btn" type="submit" id="addstore" value="Add store">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update">
+        <form method="POST" id="storeUpdate">
+            <legend><strong>Update store</strong></legend>
+              <fieldset class="fields">
+              <input type="hidden" name="storeID" id="updatestoreID" value="1">
+              <label> ID: </label> 1
+                <label> City</label> <input type="text" name="storeCity">
+                <label> Size </label> <input type="number" name="storeSize">
+          </fieldset>
+              <input class="btn" type="submit" id="Updatestore" value="Update store">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- update -->
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+      <form method="POST" id="deletestore">
+          <legend><strong>Delete store</strong></legend>
+              <fieldset class="fields">
+              <p>Are you sure you wish to delete the following store?</p>
+              <input type="hidden" name="storeID" id="deletestoreID" value="1">
+              <label><strong>ID:</strong></label> 1
+            <label> <strong>City</strong> </label> Austin
+            <label> <strong>Size</strong> </label> 40000
+                
+        </fieldset>
+        <input class="btn" type="submit" id="Deletestore" value="Delete store">
+              <input class="btn" type="button" value="cancel">
+      </form> 
+    </div>
+
 </html>
 
   

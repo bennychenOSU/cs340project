@@ -29,6 +29,49 @@
           <td>Houston</td>
         </tr>
       </table>
+
+      <div id="insert">
+        <form method="POST" id="addCustomer">
+            <legend><strong>Add Customer</strong></legend>
+              <fieldset class="fields">
+                <label> Customer Name </label> <input type="text" name="CustomerName">
+                <label> City </label> <input type="text" name="city">
+          </fieldset>
+              <input class="btn" type="submit" id="addCustomer" value="Add Customer">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- insert -->
+    
+    <p>&nbsp;</p>
+    <div id="update">
+        <form method="POST" id="CustomerUpdate">
+            <legend><strong>Update Customer</strong></legend>
+              <fieldset class="fields">
+              <input type="hidden" name="CustomerID" id="updateCustomerID" value="1">
+              <label> ID: </label> 1
+                <label> Customer Name </label> <input type="text" name="CustomerName">
+                <label> City </label> <input type="text" name="city">
+          </fieldset>
+              <input class="btn" type="submit" id="UpdateCustomer" value="Update Customer">
+              <input class="btn" type="button" value="cancel">
+        </form> 
+    </div><!-- update -->
+    <p>&nbsp;</p>
+    <div id="delete" style="display: block">
+      <form method="POST" id="deleteCustomer">
+          <legend><strong>Delete Customer</strong></legend>
+              <fieldset class="fields">
+              <p>Are you sure you wish to delete the following Customer?</p>
+              <input type="hidden" name="CustomerID" id="deleteCustomerID" value="1">
+              <label><strong>ID:</strong></label> 1
+            <label> <strong>Name</strong> </label> Austin Smith
+            <label> <strong>City</strong> </label> Austin
+                
+        </fieldset>
+        <input class="btn" type="submit" id="DeleteCustomer" value="Delete Customer">
+              <input class="btn" type="button" value="cancel">
+      </form> 
+    </div>
 </html>
 
   
