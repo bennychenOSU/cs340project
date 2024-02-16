@@ -131,6 +131,11 @@ WHERE item_id = :item_id_from_dropdown AND store_id = :store_id_from_dropdown;
 -- Read
 SELECT * FROM Sales;
 
+-- Select sales from a specific store
+SELECT * 
+FROM Sales
+WHERE store_id = :store_id_from_dropdown;
+
 -- Get Sales with item category and brand. 
 SELECT item_id, category, brand
 FROM Items 
