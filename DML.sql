@@ -73,6 +73,17 @@ WHERE store_id = :store_id
 -- Read
 SELECT * from Staffings;
 
+-- Get Staffings with employee names.
+SELECT employee_id, employee_name
+FROM employees 
+INNER JOIN Staffings on Employees.employee_id = Staffings.employee_id
+
+-- Get Staffings with store cities. 
+SELECT store_id, city
+FROM Stores 
+INNER JOIN Staffings on Stores.store_id = Staffings.employee_id
+
+
 -- Insert
 INSERT INTO Staffings (employee_id, store_id, hours_worked)
 VALUES (:employee_id_from_dropdown, store_id_from_dropdown, :hours_worked);
@@ -91,6 +102,17 @@ WHERE employee_id = :employee_id_from_dropdown AND store_id = :store_id_from_dro
 -- Read
 SELECT * from Inventories;
 
+
+-- Get Inventories with item category and brand. 
+SELECT item_id, category, brand
+FROM Items 
+INNER JOIN Inventories on Items.item_id = Inventories.items_id
+
+-- Get Inventories with store cities.
+SELECT store_id, city
+FROM Stores
+INNER JOIN Inventories on Stores.store_id = Inventories.store_id;
+
 -- Insert
 INSERT INTO Inventories (item_id, store_id, quantity)
 VALUES (:item_id_from_dropdown, store_id_from_dropdown, :quantity);
@@ -108,6 +130,26 @@ WHERE item_id = :item_id_from_dropdown AND store_id = :store_id_from_dropdown;
 
 -- Read
 SELECT * FROM Sales;
+
+-- Get Sales with item category and brand. 
+SELECT item_id, category, brand
+FROM Items 
+INNER JOIN Sales on Items.item_id = Sales.items_id
+
+-- Get Sales with store cities.
+SELECT store_id, city
+FROM Stores
+INNER JOIN Sales on Stores.store_id = Sales.store_id;
+
+-- Get Sales with employee names.
+SELECT employee_id, employee_name
+FROM employees 
+INNER JOIN Sales on Employees.employee_id = Sales.employee_id
+
+-- Get Sales with store cities. 
+SELECT store_id, city
+FROM Stores 
+INNER JOIN Sales on Stores.store_id = Sales.employee_id
 
 -- Insert
 INSERT INTO Sales (sale_id, item_id, quantity, sales_total, employee_id, customer_id, store_id)
