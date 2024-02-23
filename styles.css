@@ -85,3 +85,12 @@ footer {
   text-align: center;
   padding: 10px;
 }
+
+table  {
+  width: 100%;
+}
+td, th  {
+  border: 1px solid;
+  border-collapse: collapse;
+  padding: 10px;
+}
