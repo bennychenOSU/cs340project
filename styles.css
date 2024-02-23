@@ -1,0 +1,87 @@
+/* Root Variables */
+:root {
+  --base-color-dark: rgb(25, 50, 75);
+  --base-color-medium: rgb(48, 97, 146);
+  --base-color-light: rgb(130, 166, 202);
+  --accent-color: hsla(30, 70%, 50%, 1);
+  --transparent-color: rgba(192, 192, 192, 0.74);
+  --transparent-color-dark: rgba(145, 144, 144, 0.705);
+}
+
+/* Body Styles */
+body {
+  margin: 5%;
+  padding: 20px;
+  max-width: 75%;
+  line-height: 1.2em;
+  color: var(--base-color-dark);
+  background-color: var(--transparent-color-dark);
+}
+
+/* Header Styles */
+header {
+  background-color: var(--base-color-dark);
+  color: var(--base-color-light);
+  padding: 1.5%;
+  font-size: 1.5em;
+  border: 1px solid black; /* Add border style */
+}
+
+/* Navigation Menu Styles */
+nav a {
+  display: inline-block; /* Added display property */
+  background-color: var(--base-color-medium);
+  border: 2px solid black; /* Add border style */
+  border-radius: 5px 5px 0 0;
+  color: var(--base-color-light);
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: 1;
+  margin-right: 3px;
+  margin-top: 3px;
+  padding: 5px 20px; /* Updated padding */
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+nav a:hover {
+  background-color: var(--base-color-light);
+  color: var(--base-color-medium);
+}
+
+nav.local {
+  text-align: left;
+  margin-top: -10px;
+  padding-left: 1.5%;
+  display: flex;
+}
+
+nav.local a {
+  text-align: left;
+  background-color: var(--base-color-medium);
+  border: 0;
+  color: var(--base-color-light);
+  font-weight: 300;
+  line-height: 1;
+  margin-right: 5px;
+  padding: 5px 10px;
+  vertical-align: middle;
+}
+
+nav.local a:hover {
+  background-color: var(--base-color-light);
+  color: var(--base-color-medium);
+}
+
+/* Main Content Styles */
+.main-content {
+  padding: 20px;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
