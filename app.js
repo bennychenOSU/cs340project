@@ -48,7 +48,12 @@ app.post('/add-staffing-form', function(req, res){
         return;
     }
 
-    query1 = `INSERT INTO Staffings (employee_id, store_id, hours_worked) VALUES ('${data['input-employee_id']}', '${data['input-store-id']}', ${data['input-hours']})`;
+    let hours_worked = parseInt(data['input-hours']);
+    if (isNaN(hours_worked)) {
+        hours_worked = 0
+    }
+
+    query1 = `INSERT INTO Staffings (employee_id, store_id, hours_worked) VALUES ('${data['input-employee_id']}', '${data['input-store-id']}', ${hours_worked})`;
     db.pool.query(query1, function(error, rows, fields){
 
         if (error) {
