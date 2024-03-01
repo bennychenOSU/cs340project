@@ -1,3 +1,38 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    function deleteStaffing(param) {
+
+ let link = '/delete-staffing/';
+    let data = {
+          employee_id: param.toString()[0],
+          store_id: param.toString()[1]
+          
+      };
+  
+  
+       $.ajax({
+      url: link,
+      type: 'DELETE',
+      data: JSON.stringify(data),
+      contentType: "application/json; charset=utf-8",
+      success: function(result) {
+        deleteStaffingRow(param);
+      }
+    });
+  }
+  
+  
+  function deleteStaffingRow(rowID){
+  
+      let table = document.getElementById("staffing-table");
+      for (let i = 0, row; row = table.rows[i]; i++) {
+         if (table.rows[i].getAttribute("data-value") == rowID) {
+              table.deleteRow(i);
+              break;
+         }
+      }
+  }
+</script>
 <table id="staffing-table">
     <thead>
         <tr>
@@ -17,12 +52,12 @@
             <td>{{this.employee_id}}</td>
             <td>{{this.store_id}}</td>
             <td>{{this.hours_worked}}</td>
-            <td><button onclick="deleteStaffing({{this.employee_id}}, {{this.store_id}})">Delete</button></td>
+            <td><button onclick="deleteStaffing({{staffingRowID this.employee_id this.store_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
-<script src="./js/delete_staffing.js"></script>
+
 
 <h2>Adding Staffing</h2>
 <p>Add an employee and their staffing hours at a store. </p>
@@ -64,4 +99,31 @@
     
     <input type="submit">
     <a href='/'><button>Reset</button></a>
+</form>
+
+<h2>Update Staffing</h2>
+<p>Update an employee and their staffing hours at a store. </p>
+<form id="update-staffing-form">
+    <label for="input-employee-id">Employee ID: </label>
+     <select name="input_employee_id" id="update-employee-id">
+        <option value="">Select Employee</option>
+        {{#each employee_ids}}
+        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
+        {{/each}}
+    </select>
+  
+    
+    <label for="input-store-id">Store ID: </label>
+    <select name="input_store_id" ud="update-store-id">
+        <option value="">Select Store</option>
+        {{#each store_ids}}
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-hours">Hours Worked: </label>
+    <input type="number" name="input_hours" id="update-hours">
+
+
+    <input type="submit">
 </form>

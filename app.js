@@ -8,29 +8,34 @@ var app     = express();
 PORT        = 9124;               
 var db = require('./database/db-connector');
 
-// app.js
-
+// app.js    
+ 
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     
 app.engine('.hbs', engine({extname: ".hbs"}));  
 app.set('view engine', '.hbs');   
+app.use(express.static('public'));
 
 var hbs = exphbs.create({});
 hbs.handlebars.registerHelper("staffingRowID", function(employee_id, store_id) {
     return employee_id.toString() + store_id.toString();
 });
 
+hbs.handlebars.registerHelper("deleteParams", function(employee_id, store_id) {
+    console.log([employee_id, store_id]);
+    return [employee_id, store_id];
+});  
+ 
 
 /*
     ROUTES
-*/
+*/  
 // app.js
 
 app.get('/', function(req, res)
 
     {
         let query1;
-        console.log(req.query);
 
         if (req.query.search_employee_id === undefined) {
             query1 = "SELECT * FROM Staffings;"
@@ -95,6 +100,57 @@ app.post('/add-staffing-form', function(req, res){
         }
     })
 });
+
+app.delete('/delete-staffing/', function(req,res,next){
+    console.log("here");
+    
+    let data = req.body;
+    let employee_id = parseInt(data.employee_id);
+    let store_id = parseInt(data.store_id);
+
+    let deleteStaffing = `DELETE FROM Staffing WHERE employee_id = ? AND store_id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteStaffing, [employee_id, store_id], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  res.sendStatus(204);
+              }
+  })});
+
+  app.put('/update-staffing', function(req,res,next){
+    let data = req.body;
+  
+    let employee_id = parseInt(data.employee_id);
+    let store_id= parseInt(data.store_id);
+    let hours = parseInt(data.hours);
+  
+    let query1 = `UPDATE Staffing SET hours = ? WHERE employee_id = ? AND store_id = ? and hours = ?`;
+    let selectWorld = `SELECT * FROM bsg_planets WHERE id = ?`
+  
+          db.pool.query(query1, [employee_id, store_id, hours], function(error, rows, fields){
+              if (error) {
+  
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+        
+              else
+              {
+        
+                res.send(rows);
+                      
+              }
+  })});
     
 
 
