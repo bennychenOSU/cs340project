@@ -20,3 +20,19 @@
         {{/each}}
     </tbody>
 </table>
+
+<h2>Adding Staffing</h2>
+<p>Add an employee and their staffing hours at a store. </p>
+<form id="add-staffing-form" method="POST" action="/add-staffing-form">
+    <label for="input-employee-id">Employee ID: </label>
+    <input type="text" name="input-employee-id" id="input-employee-id">
+    
+    <label for="input-store-id">Store ID: </label>
+    <input type="text" name="input-store-id" id="input-store-id">
+
+    <label for="input-hours">Hours Worked: </label>
+    <input type="number" name="input-hours" id="input-hours">
+
+
+    <input type="submit">
+</form>
