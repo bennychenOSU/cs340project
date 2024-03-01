@@ -23,7 +23,11 @@ app.set('view engine', '.hbs');
 
 app.get('/', function(req, res)
     {
-        res.render('staffings');                    
+        let query1 = "SELECT * FROM Staffings;"
+        
+        db.pool.query(query1, function(error, result, fields) {
+            res.render('staffings', {data: result});
+        });
     });                                       
 
     /*
