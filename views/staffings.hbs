@@ -1,0 +1,49 @@
+<table>
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each data}}
+        <tr>
+            <td>{{this.employee_id}}</td>
+            <td>{{this.store_id}}</td>
+            <td>{{this.hours_worked}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Adding Staffing</h2>
+<p>Add an employee and their staffing hours at a store. </p>
+<form id="add-staffing-form" method="POST" action="/add-staffing-form">
+    <label for="input-employee-id">Employee ID: </label>
+     <select name="input-employee-id">
+        <option value="">Select Employee</option>
+        {{#each employee_ids}}
+        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
+        {{/each}}
+    </select>
+  
+    
+    <label for="input-store-id">Store ID: </label>
+    <select name="input-store-id">
+        <option value="">Select Store</option>
+        {{#each store_ids}}
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-hours">Hours Worked: </label>
+    <input type="number" name="input-hours" id="input-hours">
+
+
+    <input type="submit">
+</form>
