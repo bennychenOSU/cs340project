@@ -1,4 +1,4 @@
-<table>
+<table id="staffing-table">
     <thead>
         <tr>
             {{#each data.[0]}}
@@ -6,20 +6,23 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th>Delete</th>
         </tr>
     </thead>
 
     <tbody>
 
         {{#each data}}
-        <tr>
+        <tr data-value={{staffingRowID this.employee_id this.store_id}}>
             <td>{{this.employee_id}}</td>
             <td>{{this.store_id}}</td>
             <td>{{this.hours_worked}}</td>
+            <td><button onclick="deleteStaffing({{this.employee_id}}, {{this.store_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_staffing.js"></script>
 
 <h2>Adding Staffing</h2>
 <p>Add an employee and their staffing hours at a store. </p>
@@ -46,4 +49,19 @@
 
 
     <input type="submit">
+</form>
+
+<h2>Search Employee Staff Level </h2>
+<form id="search-employee-form" method='GET' action='/'>
+    <label for="search_employee_ID">Search by Employee ID: </label>
+    <select name="search_employee_id">
+        <option value="">Select Employee</option>
+        {{#each employee_ids}}
+        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
+        {{/each}}
+    </select>
+  
+    
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
 </form>

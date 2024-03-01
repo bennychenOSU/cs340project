@@ -13,7 +13,12 @@ var db = require('./database/db-connector');
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     
 app.engine('.hbs', engine({extname: ".hbs"}));  
-app.set('view engine', '.hbs');                
+app.set('view engine', '.hbs');   
+
+var hbs = exphbs.create({});
+hbs.handlebars.registerHelper("staffingRowID", function(employee_id, store_id) {
+    return employee_id.toString() + store_id.toString();
+});
 
 
 /*
