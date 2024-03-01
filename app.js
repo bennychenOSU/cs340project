@@ -6,7 +6,7 @@ SETUP
 var express = require('express');  
 var app     = express();       
 PORT        = 9124;               
-var db = require('./db-connector');
+var db = require('./database/db-connector');
 
 // app.js
 
@@ -22,11 +22,32 @@ app.set('view engine', '.hbs');
 // app.js
 
 app.get('/', function(req, res)
+
     {
-        let query1 = "SELECT * FROM Staffings;"
+        let query1;
+        console.log(req.query);
+
+        if (req.query.search_employee_id === undefined) {
+            query1 = "SELECT * FROM Staffings;"
+        } else {
+            query1 = `SELECT * FROM Staffings WHERE employee_id = ${req.query.search_employee_id}`;
+        }
+       
+        let query2 = `SELECT employee_id FROM Employees`;
+        let query3 = `SELECT store_id FROM Stores`;
         
         db.pool.query(query1, function(error, result, fields) {
-            res.render('staffings', {data: result});
+            let staffings = result;
+            
+            db.pool.query(query2, (error, result, fields) => {
+                let employee_ids = result;
+
+                db.pool.query(query3, (error, result, fields) => {
+                    let store_ids = result;
+                    res.render('staffings', {data: staffings, employee_ids: employee_ids, store_ids: store_ids});
+                })
+            })
+    
         });
     });
 
@@ -54,6 +75,7 @@ app.post('/add-staffing-form', function(req, res){
     }
 
     query1 = `INSERT INTO Staffings (employee_id, store_id, hours_worked) VALUES ('${data['input-employee_id']}', '${data['input-store-id']}', ${hours_worked})`;
+
     db.pool.query(query1, function(error, rows, fields){
 
         if (error) {
