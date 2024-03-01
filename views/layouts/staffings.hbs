@@ -1,0 +1,22 @@
+<table>
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each data}}
+        <tr>
+            <td>{{this.employee_id}}</td>
+            <td>{{this.store_id}}</td>
+            <td>{{this.hours_worked}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
