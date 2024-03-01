@@ -28,7 +28,43 @@ app.get('/', function(req, res)
         db.pool.query(query1, function(error, result, fields) {
             res.render('staffings', {data: result});
         });
-    });                                       
+    });
+
+    // app.js
+
+app.post('/add-staffing-form', function(req, res){
+    
+    let data = req.body;
+
+    let employee_id = parseInt(data['input-employee-id']);
+    if (isNaN(employee_id))
+    {
+        return;
+    }
+
+    let store_id = parseInt(data['input-store-id']);
+    if (isNaN(store_id))
+    {
+        return;
+    }
+
+    query1 = `INSERT INTO Staffings (employee_id, store_id, hours_worked) VALUES ('${data['input-employee_id']}', '${data['input-store-id']}', ${data['input-hours']})`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        if (error) {
+
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            res.redirect('/');
+        }
+    })
+});
+    
+
 
     /*
     LISTENER
