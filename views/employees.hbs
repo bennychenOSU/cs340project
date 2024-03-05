@@ -1,0 +1,65 @@
+<section>
+    <table id="employee-table">
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#each data}}
+            <tr data-value={{this.ID}}>
+                <td>{{this.ID}}</td>
+                <td>{{this.Name}}</td>
+                <td>{{this.Title}}</td>
+                <td><button onclick="deleteEmployee({{this.ID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <script src="../js/delete_employee.js"></script>
+</section>
+
+
+<h2>Adding Employee</h2>
+<p>Add an employee.</p>
+<form id="add-employee-form" method="POST" action="/add-employee-form">
+
+
+    <label for="input_name">Name: </label>
+    <input type="text" name="input_name" id="input-name">
+
+    <label for="input_title">Title: </label>
+    <input type="text" name="input_title" id="input-title">
+    <input type="submit">
+</form>
+
+<h2>Search Employee</h2>
+<form id="search-employee-form" method='GET' action='/employees'>
+     <select name="search_employee_id" id="update_employee_id">
+        <option value="">Select ID</option>
+        {{#each employee_ids}}
+        <option value="{{this.ID}}">{{this.ID}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+    <a href='../employees'><button>Reset</button></a>
+</form>
+
+<h2>Update Employee Title</h2>
+<form id="update-employee-form">
+    <label for="input-employee-id">Employee ID: </label>
+    <select name="input_employee_id" id="update_employee_id">
+        <option value="">Select ID</option>
+        {{#each employee_ids}}
+        <option value="{{this.ID}}">{{this.ID}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+</form>
