@@ -156,13 +156,10 @@ app.post('/add-staffing-form', function(req, res){
     })
 });
 
-/*
-app.delete('/delete-staffing-ajax/', function(req,res,next){
 
-    let data = req.body;
-  let customerID = parseInt(data.id);
+app.delete('/delete-staffing-ajax/', function(req,res,next){
    
-    /*
+    
     let data = req.body;
     
     let employee_id = parseInt(data.employee_id);
@@ -185,7 +182,27 @@ app.delete('/delete-staffing-ajax/', function(req,res,next){
               {
                   res.sendStatus(204);
               } 
-  }); */
+          })
+  });
+
+  app.delete("/delete-employee-ajax/", function(req, res, next) {
+    let data = req.body;
+    let employeeID = parseInt(data["id"]);
+    let deleteEmployeeQuery = `DELETE FROM Employees WHERE employee_id = ?`;
+    db.pool.query(deleteEmployeeQuery, [employeeID], function(error, rows, fields) {
+      if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        //console.log(error);
+        res.sendStatus(400);
+        }
+        else
+        {
+            res.sendStatus(204);
+        }
+
+    })
+  });
 
   app.delete("/delete-customer-ajax/", function (req, res, next) {
     console.log(req);
