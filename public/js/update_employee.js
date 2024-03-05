@@ -1,5 +1,6 @@
+// All code was sourced from the starter code for Node.js
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
 
-// Get the objects we need to modify
 let updateEmployeeForm = document.getElementById('update-employee-form');
 
 // Modify the objects we need

@@ -1,62 +1,35 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>
-    function deleteStaffing(param) {
+{{!
+Template was sourced from the starter code for Node.js
+https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+}}
+<section>
+    <table id="staffing-table">
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>Delete</th>
+            </tr>
+        </thead>
 
- let link = '/delete-staffing/';
-    let data = {
-          employee_id: param.toString()[0],
-          store_id: param.toString()[1]
-          
-      };
-  
-  
-       $.ajax({
-      url: link,
-      type: 'DELETE',
-      data: JSON.stringify(data),
-      contentType: "application/json; charset=utf-8",
-      success: function(result) {
-        deleteStaffingRow(param);
-      }
-    });
-  }
-  
-  
-  function deleteStaffingRow(rowID){
-  
-      let table = document.getElementById("staffing-table");
-      for (let i = 0, row; row = table.rows[i]; i++) {
-         if (table.rows[i].getAttribute("data-value") == rowID) {
-              table.deleteRow(i);
-              break;
-         }
-      }
-  }
-</script>
-<table id="staffing-table">
-    <thead>
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
+        <tbody>
+
+            {{#each data}}
+            <tr data-value={{staffingRowID this.employee_id this.store_id}}>
+                <td>{{this.employee_id}}</td>
+                <td>{{this.store_id}}</td>
+                <td>{{this.hours_worked}}</td>
+                 <td><button onclick="deleteCustomer({{this.customerID}})">D</button></td>
+                <td><button onclick="deleteStaffing({{staffingRowID this.employee_id this.store_id}})">Delete</button></td>
+            </tr>
             {{/each}}
-            <th>Delete</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        {{#each data}}
-        <tr data-value={{staffingRowID this.employee_id this.store_id}}>
-            <td>{{this.employee_id}}</td>
-            <td>{{this.store_id}}</td>
-            <td>{{this.hours_worked}}</td>
-            <td><button onclick="deleteStaffing({{staffingRowID this.employee_id this.store_id}})">Delete</button></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    <script src="../js/delete_staffing.js"></script>
+</section>
 
 
 <h2>Adding Staffing</h2>

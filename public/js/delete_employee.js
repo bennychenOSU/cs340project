@@ -1,3 +1,6 @@
+// All code was sourced from the starter code for Node.js
+// The variable names were adapted to our use case
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
 function deleteEmployee(ID) {
     
     let data = {
