@@ -42,7 +42,7 @@
 
 <h2>Search Employee</h2>
 <form id="search-employee-form" method='GET' action='/employees'>
-     <select name="search_employee_id" id="update_employee_id">
+     <select name="search_employee_id" id="search_employee_id">
         <option value="">Select ID</option>
         {{#each employee_ids}}
         <option value="{{this.ID}}">{{this.ID}}</option>
@@ -52,14 +52,25 @@
     <a href='../employees'><button>Reset</button></a>
 </form>
 
-<h2>Update Employee Title</h2>
+<section>
+    <h2>Update Employee Title</h2>
 <form id="update-employee-form">
     <label for="input-employee-id">Employee ID: </label>
-    <select name="input_employee_id" id="update_employee_id">
-        <option value="">Select ID</option>
+    <select name="update_employee_id" id="update_employee_id">
+        <option value="x">Select ID</option>
         {{#each employee_ids}}
         <option value="{{this.ID}}">{{this.ID}}</option>
         {{/each}}
     </select>
+
+    <label for="update_employee_name">Employee Name:</label>
+    <input type="text" name="update_employee_name" id="update_employee_name"></select>
+
+     <label for="update_employee_title">Title:</label>
+    <input type="text" name="update_employee_title" id="update_employee_title"></select>
+
+
     <input type="submit">
 </form>
+<script src="../js/update_employee.js"></script>    
+</section>

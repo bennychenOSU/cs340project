@@ -204,40 +204,40 @@ app.delete('/delete-staffing-ajax/', function(req,res,next){
     })
   });
 
-  app.delete("/delete-customer-ajax/", function (req, res, next) {
-    console.log(req);
+  app.put('/put-employee', function(req,res,next){
     let data = req.body;
-    let customerID = parseInt(data.id);
-    let deleteCustomer_Cert_Customer = `DELETE FROM Customers WHERE customerID = ?`;
-    let deleteCustomer_Customer = `DELETE FROM Customers WHERE customerID = ?`;
-  /*
-    // Run the 1st query
-    db.pool.query(
-      deleteCustomer_Cert_Customer,
-      [customerID],
-      function (error, rows, fields) {
-        if (error) {
-          // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-          console.log(error);
-          res.sendStatus(400);
-        } else {
-          // Run the second query
-          db.pool.query(
-            deleteCustomer_Customer,
-            [customerID],
-            function (error, rows, fields) {
+  
+    let id = parseInt(data["id"]);
+    let name = data["name"];
+    let title = data["title"];
+   
+  
+    let updateEmployeeQuery = `UPDATE Employees SET employee_name = ?, title = ?  WHERE employee_id = ?`;
+    let query2 = `SELECT employee_id as ID, employee_name as Name, title as Title FROM Employees WHERE employee_id = ?`
+  
+          // Run the 1st query
+          db.pool.query(updateEmployeeQuery, [name, title, id], function(error, rows, fields){
               if (error) {
-                console.log(error);
-                res.sendStatus(400);
-              } else {
-                res.sendStatus(204);
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
               }
-            }
-          );
-        }
-      }
-    ); */
-  });
+  
+              else {
+                db.pool.query(query2, [id], function(error, rows, fields) {
+                  if (error) {
+  
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                    } else {
+                      res.send(rows);
+                    }
+                })                    
+                
+              }
+  })});
   
 
   app.put('/update-staffing', function(req,res,next){
@@ -248,7 +248,7 @@ app.delete('/delete-staffing-ajax/', function(req,res,next){
     let hours = parseInt(data.hours);
   
     let query1 = `UPDATE Staffing SET hours = ? WHERE employee_id = ? AND store_id = ? and hours = ?`;
-    let selectWorld = `SELECT * FROM bsg_planets WHERE id = ?`
+    let selectWorld = `SELECT * FROM employees WHERE id = ?`
   
           db.pool.query(query1, [employee_id, store_id, hours], function(error, rows, fields){
               if (error) {
