@@ -1,0 +1,80 @@
+{{!
+Template was sourced from the starter code for Node.js
+https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+}}
+<section>
+    <table id="staffings-table">
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#each data}}
+            <tr data-value={{this.ID}}>
+                <td>{{this.ID}}</td>
+                <td>{{this.Name}}</td>
+                <td>{{this.Title}}</td>
+                <td><button onclick="deleteStaffing({{this.ID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <script src="../js/delete_staffing.js"></script>
+</section>
+
+
+<h2>Adding Staff</h2>
+<p>Add staffing.</p>
+<form id="add-staff-form" method="POST" action="/add-staff-form">
+
+
+    <label for="input_name">Name: </label>
+    <input type="text" name="input_name" id="input-name">
+
+    <label for="input_title">Title: </label>
+    <input type="text" name="input_title" id="input-title">
+    <input type="submit">
+</form>
+
+<h2>Search Staff</h2>
+<form id="search-staff-form" method='GET' action='/staffings'>
+     <select name="search_staff_id" id="search_staff_id">
+        <option value="">Select ID</option>
+        {{#each staff_ids}}
+        <option value="{{this.ID}}">{{this.ID}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+    <a href='../staffings'><button>Reset</button></a>
+</form>
+
+<section>
+    <h2>Update Staff Title</h2>
+<form id="update-staff-form">
+    <label for="input-staff-id">Staff ID: </label>
+    <select name="update_staff_id" id="update_staff_id">
+        <option value="x">Select ID</option>
+        {{#each staff_ids}}
+        <option value="{{this.ID}}">{{this.ID}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update_staff_name">Staff Name:</label>
+    <input type="text" name="update_staff_name" id="update_staff_name"></select>
+
+     <label for="update_staff_title">Title:</label>
+    <input type="text" name="update_staff_title" id="update_staff_title"></select>
+
+
+    <input type="submit">
+</form>
+<script src="../js/update_staffing.js"></script>    
+</section>

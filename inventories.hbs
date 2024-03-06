@@ -1,0 +1,80 @@
+{{!
+Template was sourced from the starter code for Node.js
+https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+}}
+<section>
+    <table id="inventories-table">
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#each data}}
+            <tr data-value={{this.ID}}>
+                <td>{{this.ID}}</td>
+                <td>{{this.Name}}</td>
+                <td>{{this.Title}}</td>
+                <td><button onclick="deleteInventory({{this.ID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <script src="../js/delete_inventory.js"></script>
+</section>
+
+
+<h2>Adding Inventory</h2>
+<p>Add an inventory item.</p>
+<form id="add-inventory-form" method="POST" action="/add-inventory-form">
+
+
+    <label for="input_name">Name: </label>
+    <input type="text" name="input_name" id="input-name">
+
+    <label for="input_title">Title: </label>
+    <input type="text" name="input_title" id="input-title">
+    <input type="submit">
+</form>
+
+<h2>Search Inventory</h2>
+<form id="search-inventory-form" method='GET' action='/inventories'>
+     <select name="search_inventory_id" id="search_inventory_id">
+        <option value="">Select ID</option>
+        {{#each inventory_ids}}
+        <option value="{{this.ID}}">{{this.ID}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+    <a href='../inventories'><button>Reset</button></a>
+</form>
+
+<section>
+    <h2>Update Inventory</h2>
+<form id="update-inventory-form">
+    <label for="input-inventory-id">Inventory ID: </label>
+    <select name="update_inventory_id" id="update_inventory_id">
+        <option value="x">Select ID</option>
+        {{#each inventory_ids}}
+        <option value="{{this.ID}}">{{this.ID}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update_inventory_name">Inventory Name:</label>
+    <input type="text" name="update_inventory_name" id="update_inventory_name"></select>
+
+     <label for="update_inventory_title">Title:</label>
+    <input type="text" name="update_inventory_title" id="update_inventory_title"></select>
+
+
+    <input type="submit">
+</form>
+<script src="../js/update_inventory.js"></script>    
+</section>
