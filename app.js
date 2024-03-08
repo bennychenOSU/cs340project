@@ -8,7 +8,7 @@ SETUP
 // Express
 var express = require('express');  
 var app     = express();       
-PORT        = 9124;               
+PORT        = 9123;               
 var db = require('./database/db-connector');
 
 // app.js    
@@ -37,7 +37,7 @@ hbs.handlebars.registerHelper("deleteParams", function(employee_id, store_id) {
 */  
 // app.js
 
-app.get('/sales', function(req, res) {
+app.get('/', function(req, res) {
     let query1;
 
     if (req.query.search_sale_id === undefined || req.query.search_sale_id === "") {
