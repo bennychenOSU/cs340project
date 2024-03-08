@@ -18,11 +18,11 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
         <tbody>
 
             {{#each data}}
-            <tr data-value={{this.ID}}>
-                <td>{{this.ID}}</td>
-                <td>{{this.Name}}</td>
-                <td>{{this.Title}}</td>
-                <td><button onclick="deleteStore({{this.ID}})">Delete</button></td>
+            <tr data-value={{this.store_id}}>
+                <td>{{this.store_id}}</td>
+                <td>{{this.city}}</td>
+                <td>{{this.store_size}}</td>
+                <td><button onclick="deleteStore({{this.store_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -36,11 +36,11 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 <form id="add-store-form" method="POST" action="/add-store-form">
 
 
-    <label for="input_name">Name: </label>
-    <input type="text" name="input_name" id="input-name">
+    <label for="add_city">City: </label>
+    <input type="text" name="add_city" id="add_city">
 
-    <label for="input_title">Title: </label>
-    <input type="text" name="input_title" id="input-title">
+    <label for="add_size">Size: </label>
+    <input type="number" name="add_size" id="add_size">
     <input type="submit">
 </form>
 
@@ -49,7 +49,7 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
      <select name="search_store_id" id="search_store_id">
         <option value="">Select ID</option>
         {{#each store_ids}}
-        <option value="{{this.ID}}">{{this.ID}}</option>
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
         {{/each}}
     </select>
     <input type="submit">
@@ -57,24 +57,23 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 </form>
 
 <section>
-    <h2>Update Store Title</h2>
+    <h2>Update Store Details</h2>
 <form id="update-store-form">
-    <label for="input-store-id">Store ID: </label>
+    <label for="update_store_id">Store ID: </label>
     <select name="update_store_id" id="update_store_id">
         <option value="x">Select ID</option>
         {{#each store_ids}}
-        <option value="{{this.ID}}">{{this.ID}}</option>
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
         {{/each}}
     </select>
 
-    <label for="update_store_name">Store Name:</label>
-    <input type="text" name="update_store_name" id="update_store_name"></select>
+     <label for="udpate_city">City: </label>
+    <input type="text" name="update_city" id="update_city">
 
-     <label for="update_store_title">Title:</label>
-    <input type="text" name="update_store_title" id="update_store_title"></select>
-
-
+    <label for="update_size">Size: </label>
+    <input type="number" name="update_size" id="update_size">
     <input type="submit">
+
 </form>
 <script src="../js/update_store.js"></script>    
 </section>

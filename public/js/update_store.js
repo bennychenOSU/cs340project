@@ -11,23 +11,25 @@ updateStoreForm.addEventListener("submit", function (e) {
 
     // Get form fields we need to get data from
     let id = document.getElementById("update_store_id");
-    let name = document.getElementById("update_store_name")
-    let title = document.getElementById("update_store_title");
+    let city = document.getElementById("update_city")
+    let size = document.getElementById("update_size");
+
+
 
 
     let idValue = id.value;
-    let nameValue = name.value;
-    let titleValue = title.value;
+    let cityValue = city.value;
+    let sizeValue = size.value;
 
 
-    if (nameValue === undefined || titleValue === undefined) 
+    if (idValue === undefined || cityValue === undefined || sizeValue === undefined) 
     {
         return;
     }
     let data = {
         id: idValue,
-        name: nameValue,
-        title: titleValue
+        city: cityValue,
+        size: sizeValue
     }
     
     // Setup our AJAX request
@@ -68,10 +70,10 @@ function updateRow(data, storeID){
 
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            let name_td = updateRowIndex.getElementsByTagName("td")[1];
-            let title_td = updateRowIndex.getElementsByTagName("td")[2];
-            name_td.innerHTML = parsedData[0].name;
-            title_td.innerHTML = parsedData[0].title; 
+            let city_td = updateRowIndex.getElementsByTagName("td")[1];
+            let size_td = updateRowIndex.getElementsByTagName("td")[2];
+            city_td.innerHTML = parsedData[0].city;
+            size_td.innerHTML = parsedData[0].store_size; 
        }
     }
 }
