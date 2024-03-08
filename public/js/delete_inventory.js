@@ -1,10 +1,8 @@
-// All code was sourced from the starter code for Node.js
-// The variable names were adapted to our use case
-// https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
-function deleteInventory(ID) {
-    
+function deleteInventory(itemID) {
+    // Put our data we want to send in a javascript object
+  
     let data = {
-        id: ID
+        item_id: itemID
     };
   
     // Setup our AJAX request
@@ -18,7 +16,7 @@ function deleteInventory(ID) {
   
   
             // Add the new data to the table
-            deleteRow(ID);
+            deleteRow(itemID);
   
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
@@ -30,11 +28,13 @@ function deleteInventory(ID) {
   }
   
   
-  function deleteRow(ID){
+  function deleteRow(itemID){
   
-    let table = document.getElementById("inventories-table");
+    let table = document.getElementById("staffings-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
-       if (table.rows[i].getAttribute("data-value") == ID) {
+       //iterate through rows
+       //rows would be accessed using the "row" variable assigned in the for loop
+       if (table.rows[i].getAttribute("data-value") == itemID) {
             table.deleteRow(i);
             break;
        }

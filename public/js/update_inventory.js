@@ -3,75 +3,61 @@
 
 let updateInventoryForm = document.getElementById('update-inventory-form');
 
-// Modify the objects we need
 updateInventoryForm.addEventListener("submit", function (e) {
-   
-    // Prevent the form from submitting
+
     e.preventDefault();
 
-    // Get form fields we need to get data from
-    let id = document.getElementById("update_inventory_id");
-    let name = document.getElementById("update_inventory_name")
-    let title = document.getElementById("update_inventory_title");
-
+    let id = document.getElementById("update-item-id");
+    let store = document.getElementById("update-store-id");
+    let quantity = document.getElementById("update-quantity")
 
     let idValue = id.value;
-    let nameValue = name.value;
-    let titleValue = title.value;
-
-
-    if (nameValue === undefined || titleValue === undefined) 
+    let storeIDValue = store.value;
+    let quantityValue = parseInt(quantity.value);
+    
+    if (idValue === undefined || storeIDValue === undefined || quantityValue === undefined || priceValue === undefined) 
     {
         return;
     }
     let data = {
-        id: idValue,
-        name: nameValue,
-        title: titleValue
+       item_id: idValue,
+       store: storeIDValue,
+       quantity: quantityValue
     }
-    
-    // Setup our AJAX request
+
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/put-inventory", true);
     xhttp.setRequestHeader("Content-type", "application/json");
-
-    // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
-            updateRow(xhttp.response, idValue);
+            updateRow(xhttp.response, item_id);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
-
-    // Send the request and wait for the response
     xhttp.send(JSON.stringify(data));
 
 })
 
 
-function updateRow(data, inventoryID){
+function updateRow(data, itemID){
     let parsedData = JSON.parse(data);
     
-    let table = document.getElementById("inventories-table");
-
-    console.log(parsedData);
+    let table = document.getElementById("inventory-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
-       //iterate through rows
-       //rows would be accessed using the "row" variable assigned in the for loop
-       if (table.rows[i].getAttribute("data-value") == inventoryID) {
+      
+       if (table.rows[i].getAttribute("data-value") == itemID) {
 
-            // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            let name_td = updateRowIndex.getElementsByTagName("td")[1];
-            let title_td = updateRowIndex.getElementsByTagName("td")[2];
-            name_td.innerHTML = parsedData[0].name;
-            title_td.innerHTML = parsedData[0].title; 
+            let store_td = updateRowIndex.getElementsByTagName("td")[1];
+            let quantity_td = updateRowIndex.getElementsByTagName("td")[2];
+
+            store_td.innerHTML = parsedData[0].store; 
+            quantity_td.innerHTML = parsedData[0].quantity; 
        }
     }
 }
