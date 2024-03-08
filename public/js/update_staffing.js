@@ -7,7 +7,7 @@ updateEmployeeForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     let employee_id = document.getElementById("update-staff-id");
-    let store_id = document.getElementById("input-store-id");
+    let store_id = document.getElementById("update-store-id");
 
     let employeeIDValue = employee_id.value;
     let storeIDValue = store_id.value;
