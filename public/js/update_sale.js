@@ -10,24 +10,27 @@ updateSaleForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let id = document.getElementById("update_sale_id");
-    let name = document.getElementById("update_sale_name")
-    let title = document.getElementById("update_sale_title");
+    let sale_id = document.getElementById("update_sale_id").value;
+    let item_id = document.getElementById("update_item_id").value;
+    let quantity = document.getElementById("update_quantity").value;
+    let total = document.getElementById("update_total").value;
+    let employee_id = document.getElementById("update_employee_id").value;
+    let customer_id  = document.getElementById("update_customer_id").value;
+    let store_id = document.getElementById("update_store_id").value;
 
-
-    let idValue = id.value;
-    let nameValue = name.value;
-    let titleValue = title.value;
-
-
-    if (nameValue === undefined || titleValue === undefined) 
+    if (sale_id === undefined || item_id === undefined || quantity === undefined || total === undefined 
+        || employee_id ===  undefined || store_id === undefined) 
     {
         return;
     }
     let data = {
-        id: idValue,
-        name: nameValue,
-        title: titleValue
+        sale_id: sale_id,
+        item_id: item_id,
+        quantity: quantity,
+        total: total,
+        employee_id: employee_id,
+        customer_id: customer_id, 
+        store_id: store_id
     }
     
     // Setup our AJAX request
@@ -40,7 +43,7 @@ updateSaleForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, idValue);
+            updateRow(xhttp.response, sale_id);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -68,10 +71,19 @@ function updateRow(data, saleID){
 
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            let name_td = updateRowIndex.getElementsByTagName("td")[1];
-            let title_td = updateRowIndex.getElementsByTagName("td")[2];
-            name_td.innerHTML = parsedData[0].name;
-            title_td.innerHTML = parsedData[0].title; 
+            let item_td = updateRowIndex.getElementsByTagName("td")[1];
+            let quantity_td = updateRowIndex.getElementsByTagName("td")[2];
+            let total_td = updateRowIndex.getElementsByTagName("td")[3];
+            let employee_td = updateRowIndex.getElementsByTagName("td")[4];
+            let customer_td = updateRowIndex.getElementsByTagName("td")[5];
+            let store_td = updateRowIndex.getElementsByTagName("td")[6];
+
+            item_td = parsedData[0].item_id;
+            quantity_td = parsedData[0].quantity;
+            total_td = parsedData[0].total;
+            employee_td = parsedData[0].employee_id;
+            customer_td = parsedData[0].customer_id;
+            store_td = parsedData[0].store_id;
        }
     }
 }
