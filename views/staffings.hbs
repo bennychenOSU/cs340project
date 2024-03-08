@@ -3,7 +3,7 @@ Template was sourced from the starter code for Node.js
 https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
 }}
 <section>
-    <table id="staffing-table">
+    <table id="staffings-table">
         <thead>
             <tr>
                 {{#each data.[0]}}
@@ -18,12 +18,11 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
         <tbody>
 
             {{#each data}}
-            <tr data-value={{staffingRowID this.employee_id this.store_id}}>
+            <tr data-value={{this.employee_id}}>
                 <td>{{this.employee_id}}</td>
                 <td>{{this.store_id}}</td>
                 <td>{{this.hours_worked}}</td>
-                 <td><button onclick="deleteCustomer({{this.customerID}})">D</button></td>
-                <td><button onclick="deleteStaffing({{staffingRowID this.employee_id this.store_id}})">Delete</button></td>
+                <td><button onclick="deleteStaffing({{this.employee_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -32,71 +31,53 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 </section>
 
 
-<h2>Adding Staffing</h2>
-<p>Add an employee and their staffing hours at a store. </p>
-<form id="add-staffing-form" method="POST" action="/add-staffing-form">
-    <label for="input-employee-id">Employee ID: </label>
-     <select name="input-employee-id">
-        <option value="">Select Employee</option>
-        {{#each employee_ids}}
-        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
-        {{/each}}
-    </select>
-  
-    
-    <label for="input-store-id">Store ID: </label>
-    <select name="input-store-id">
-        <option value="">Select Store</option>
-        {{#each store_ids}}
-        <option value="{{this.store_id}}">{{this.store_id}}</option>
-        {{/each}}
-    </select>
+<h2>Adding Staff</h2>
+<p>Add staff.</p>
+<form id="add-staff-form" method="POST" action="/add-staff-form">
 
-    <label for="input-hours">Hours Worked: </label>
-    <input type="number" name="input-hours" id="input-hours">
 
+    <label for="add_staff_name">Employee Name: </label>
+    <input type="text" name="add_staff_name" id="add_staff_name">
+
+    <label for="add_store_id">Store ID: </label>
+    <input type="text" name="add_store_id" id="add_store_id">
+
+    <label for="add_hours">Hours Worked: </label>
+    <input type="text" name="add_hours" id="add_hours">
 
     <input type="submit">
 </form>
 
-<h2>Search Employee Staff Level </h2>
-<form id="search-employee-form" method='GET' action='/'>
-    <label for="search_employee_ID">Search by Employee ID: </label>
-    <select name="search_employee_id">
-        <option value="">Select Employee</option>
+<h2>Search Staff</h2>
+<form id="search-staff-form" method='GET' action='/staffings'>
+     <select name="search_staff_id" id="search_staff_id">
+        <option value="">Select ID</option>
         {{#each employee_ids}}
         <option value="{{this.employee_id}}">{{this.employee_id}}</option>
         {{/each}}
     </select>
-  
-    
     <input type="submit">
-    <a href='/'><button>Reset</button></a>
+    <a href='../staffings'><button>Reset</button></a>
 </form>
 
-<h2>Update Staffing</h2>
-<p>Update an employee and their staffing hours at a store. </p>
-<form id="update-staffing-form">
-    <label for="input-employee-id">Employee ID: </label>
-     <select name="input_employee_id" id="update-employee-id">
-        <option value="">Select Employee</option>
+<section>
+    <h2>Update Staff Details</h2>
+<form id="update-staff-form">
+    <label for="input-staff-id">Staff ID: </label>
+    <select name="update_staff_id" id="update_staff_id">
+        <option value="x">Select ID</option>
         {{#each employee_ids}}
         <option value="{{this.employee_id}}">{{this.employee_id}}</option>
         {{/each}}
     </select>
-  
-    
-    <label for="input-store-id">Store ID: </label>
-    <select name="input_store_id" ud="update-store-id">
-        <option value="">Select Store</option>
-        {{#each store_ids}}
-        <option value="{{this.store_id}}">{{this.store_id}}</option>
-        {{/each}}
-    </select>
 
-    <label for="input-hours">Hours Worked: </label>
-    <input type="number" name="input_hours" id="update-hours">
+    <label for="update_store_id">Store ID:</label>
+    <input type="text" name="update_store_id" id="update_store_id"></select>
 
+     <label for="update_hours">hours_worked:</label>
+    <input type="text" name="update_hours" id="update_hours"></select>
 
     <input type="submit">
 </form>
+<script src="../js/update_staffing.js"></script>    
+</section>
