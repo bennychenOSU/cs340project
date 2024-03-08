@@ -43,7 +43,7 @@ app.get('/sales', function(req, res) {
     if (req.query.search_sale_id === undefined || req.query.search_sale_id === "") {
         query1 = "SELECT * from Sales;"
     } else {
-        query1 = `SELECT * from Sales WHERE item_id = ${req.query.search_sales_id}`
+        query1 = `SELECT * from Sales WHERE sale_id = ${req.query.search_sale_id}`
     }
 
     let query2 = "SELECT sale_id from Sales;"
@@ -101,7 +101,30 @@ app.get('/sales', function(req, res) {
     })
 });
 
+app.post('/add-sale-form', function(req, res){
 
+    
+    let data = req.body;
+
+    console.log("here")
+   
+
+    query1 = `INSERT INTO Sales (item_id, quantity, sales_total, employee_id, customer_id, store_id) VALUES ('${data['add_item_id']}', '${data['add_quantity']}', '${data['add_total']}', '${data['add_employee_id']}', '${data['add_customer_id']}', '${data['add_store_id']}')`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        if (error) {
+
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            res.redirect('/sales');
+        }
+    })
+});
 
 
 
