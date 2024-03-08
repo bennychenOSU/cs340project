@@ -47,18 +47,17 @@ app.get('/sales', function(req, res) {
     }
 
     let query2 = "SELECT sale_id from Stores;"
+    let query3 = "SELECT item_id from Items;"
+    let query4 = "SELECT employee_id from Employees;"
+    let query5 = "SELECT customer_id from Customers;"
+    let query6 = "SELECT store_id from Stores;"
 
     db.pool.query(query1, function(error, result, fields) {
-        let sales = result;
         
-        db.pool.query(query2, (error, result, fields) => {
-            let sale_ids = result;
-               
-            res.render('sales', {data: sales, sale_ids: sale_ids});            
-        })
-    });
-
+    })
 });
+
+
 
 
 
