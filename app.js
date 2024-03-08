@@ -37,6 +37,33 @@ hbs.handlebars.registerHelper("deleteParams", function(employee_id, store_id) {
 */  
 // app.js
 
+app.get('/sales', function(req, res) {
+    let query1;
+
+    if (req.query.search_sale_id === undefined || req.query.search_sale_id === "") {
+        query1 = "SELECT * from Sales;"
+    } else {
+        query1 = `SELECT * from Sales WHERE item_id = ${req.query.search_sales_id}`
+    }
+
+    let query2 = "SELECT sale_id from Stores;"
+
+    db.pool.query(query1, function(error, result, fields) {
+        let sales = result;
+        
+        db.pool.query(query2, (error, result, fields) => {
+            let sale_ids = result;
+               
+            res.render('sales', {data: sales, sale_ids: sale_ids});            
+        })
+    });
+
+});
+
+
+
+
+
 app.get('/stores', function(req, res) {
     let query1;
 
