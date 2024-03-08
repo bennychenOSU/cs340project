@@ -46,14 +46,58 @@ app.get('/sales', function(req, res) {
         query1 = `SELECT * from Sales WHERE item_id = ${req.query.search_sales_id}`
     }
 
-    let query2 = "SELECT sale_id from Stores;"
+    let query2 = "SELECT sale_id from Sales;"
     let query3 = "SELECT item_id from Items;"
     let query4 = "SELECT employee_id from Employees;"
     let query5 = "SELECT customer_id from Customers;"
     let query6 = "SELECT store_id from Stores;"
 
     db.pool.query(query1, function(error, result, fields) {
-        
+        if (error) {
+            console.log(error);
+        } else {
+            let data = result;
+            db.pool.query(query2, (error, result, fields) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    let sale_ids = result;
+                    db.pool.query(query3, (error, result, fields) => {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            let item_ids = result;
+                            db.pool.query(query4, (error, result, fields) => {
+                                if (error) {
+                                    console.log(error);
+                                } else {
+                                    let employee_ids = result;
+                                    db.pool.query(query5, (error, result, fields) => {
+                                        if (error) {
+                                            console.log(error);
+                                        } else {
+                                            let customer_ids = result;
+                                            db.pool.query(query6, (error, result, fields) => {
+                                                if (error) {
+                                                    console.log(error);
+                                                } else {
+                                                    let store_ids = result;
+                                                    res.render('sales', {data: data, sale_ids: sale_ids, item_ids: item_ids, employee_ids: employee_ids, customer_ids: customer_ids, store_ids: store_ids})
+                                                }
+
+                                            }) 
+
+                    
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+
+                }
+            })
+        }
     })
 });
 
