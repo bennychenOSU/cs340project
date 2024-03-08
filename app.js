@@ -314,7 +314,7 @@ app.get('/employees', function(req, res)
   
 
 
-app.get('/', function(req, res)
+app.get('/staffings', function(req, res)
 
     {
         let query1;
