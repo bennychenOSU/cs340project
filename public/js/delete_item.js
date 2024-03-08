@@ -4,7 +4,7 @@
 function deleteItem(ID) {
     
     let data = {
-        id: ID
+        item_id: ID
     };
   
     // Setup our AJAX request

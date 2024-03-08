@@ -11,23 +11,27 @@ updateItemForm.addEventListener("submit", function (e) {
 
     // Get form fields we need to get data from
     let id = document.getElementById("update_item_id");
-    let name = document.getElementById("update_item_name")
-    let title = document.getElementById("update_item_title");
+    let category = document.getElementById("update_item_category")
+    let brand = document.getElementById("update_item_brand");
+    let price = document.getElementById("update_item_price");
+
 
 
     let idValue = id.value;
-    let nameValue = name.value;
-    let titleValue = title.value;
+    let categoryValue = category.value;
+    let brandValue = brand.value;
+    let priceValue = parseInt(price.value);
 
 
-    if (nameValue === undefined || titleValue === undefined) 
+    if (idValue === undefined || categoryValue === undefined || brandValue === undefined || priceValue === undefined) 
     {
         return;
     }
     let data = {
-        id: idValue,
-        name: nameValue,
-        title: titleValue
+        item_id: idValue,
+        category: categoryValue,
+        brand: brandValue,
+        price: priceValue,
     }
     
     // Setup our AJAX request
@@ -68,10 +72,13 @@ function updateRow(data, itemID){
 
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            let name_td = updateRowIndex.getElementsByTagName("td")[1];
-            let title_td = updateRowIndex.getElementsByTagName("td")[2];
-            name_td.innerHTML = parsedData[0].name;
-            title_td.innerHTML = parsedData[0].title; 
+            let category_td = updateRowIndex.getElementsByTagName("td")[1];
+            let brand_td = updateRowIndex.getElementsByTagName("td")[2];
+            let price_td = updateRowIndex.getElementsByTagName("td")[3];
+
+            category_td.innerHTML = parsedData[0].category;
+            brand_td.innerHTML = parsedData[0].brand;
+            price_td.innerHTML = parsedData[0].price; 
        }
     }
 }

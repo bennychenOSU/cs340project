@@ -37,6 +37,110 @@ hbs.handlebars.registerHelper("deleteParams", function(employee_id, store_id) {
 */  
 // app.js
 
+app.get('/items', function(req, res) {
+    let query1;
+
+    if (req.query.search_item_id === undefined || req.query.search_item_id === "") {
+        query1 = "SELECT * from Items;"
+    } else {
+        query1 = `SELECT * from Items WHERE item_id = ${req.query.search_item_id}`
+    }
+
+    let query2 = "SELECT item_id from Items;"
+
+    db.pool.query(query1, function(error, result, fields) {
+        let items = result;
+        
+        db.pool.query(query2, (error, result, fields) => {
+            let item_ids = result;
+               
+            res.render('items', {data: items, item_ids: item_ids});            
+        })
+    });
+
+});
+
+app.post('/add-item-form', function(req, res){
+
+    
+    let data = req.body;
+
+    console.log("here")
+   
+
+    query1 = `INSERT INTO Items (category, brand, price) VALUES ('${data['add_item_category']}', '${data['add_item_brand']}', '${data['add_item_price']}')`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        if (error) {
+
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            res.redirect('/items');
+        }
+    })
+});
+
+app.delete("/delete-item-ajax/", function(req, res, next) {
+    let data = req.body;
+    let itemID = parseInt(data["item_id"]);
+    let deleteEmployeeQuery = `DELETE FROM Items WHERE item_id = ?`;
+    db.pool.query(deleteEmployeeQuery, [itemID], function(error, rows, fields) {
+      if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        //console.log(error);
+        res.sendStatus(400);
+        }
+        else
+        {
+            res.sendStatus(204);
+        }
+
+    })
+  });
+
+  app.put('/put-item', function(req,res,next){
+    let data = req.body;
+  
+    let item_id = parseInt(data.item_id);
+    let category = data.category;
+    let brand = data.brand;
+    let price = parseInt(data.price);
+  
+    let query1 = `UPDATE Items SET category = ?, brand = ?, price = ? WHERE item_id = ?`;
+    let query2 = `SELECT * FROM Items WHERE item_id = ?`
+
+  
+    db.pool.query(query1, [category, brand, price, item_id], function(error, rows, fields){
+        if (error) {
+
+        console.log(error);
+        res.sendStatus(400);
+        } else {
+            db.pool.query(query2, [item_id], function(error, rows, fields) {
+                if (error) {
+
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+    
+                   
+    
+
+
+
 app.get('/employees', function(req, res)
 
     {
@@ -48,7 +152,20 @@ app.get('/employees', function(req, res)
             query1 = `SELECT employee_id as ID, employee_name as Name, title as Title FROM Employees WHERE employee_id = ${req.query.search_employee_id}`;
         }
        
-        let query2 = `SELECT employee_id as ID FROM Employees`;
+        let query2 = `SELECT employee_id as ID FROM Employees;`
+
+        db.pool.query(query1, function(error, result, fields) {
+            let employees = result;
+            
+            db.pool.query(query2, (error, result, fields) => {
+                let employee_ids = result;
+
+                   
+                res.render('employees', {data: employees, employee_ids: employee_ids});
+                
+            })
+    
+        });
 
     
         db.pool.query(query1, function(error, result, fields) {

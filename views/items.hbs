@@ -18,11 +18,12 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
         <tbody>
 
             {{#each data}}
-            <tr data-value={{this.ID}}>
-                <td>{{this.ID}}</td>
-                <td>{{this.Name}}</td>
-                <td>{{this.Title}}</td>
-                <td><button onclick="deleteItem({{this.ID}})">Delete</button></td>
+            <tr data-value={{this.item_id}}>
+                <td>{{this.item_id}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.brand}}</td>
+                <td>{{this.price}}</td>
+                <td><button onclick="deleteItem({{this.item_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -35,13 +36,17 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 <p>Add an item.</p>
 <form id="add-item-form" method="POST" action="/add-item-form">
 
+     <label for="add_item_category">Category:</label>
+    <input type="text" name="add_item_category" id="add_item_category"></select>
 
-    <label for="input_name">Name: </label>
-    <input type="text" name="input_name" id="input-name">
+     <label for="add_item_brand">Brand:</label>
+    <input type="text" name="add_item_brand" id="add_item_brand"></select>
 
-    <label for="input_title">Title: </label>
-    <input type="text" name="input_title" id="input-title">
+     <label for="add_item_price">Price:</label>
+    <input type="number" name="add_item_price" id="add_item_price"></select>
+
     <input type="submit">
+
 </form>
 
 <h2>Search Items</h2>
@@ -49,7 +54,7 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
      <select name="search_item_id" id="search_item_id">
         <option value="">Select ID</option>
         {{#each item_ids}}
-        <option value="{{this.ID}}">{{this.ID}}</option>
+        <option value="{{this.item_id}}">{{this.item_id}}</option>
         {{/each}}
     </select>
     <input type="submit">
@@ -57,21 +62,24 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 </form>
 
 <section>
-    <h2>Update Item Title</h2>
+    <h2>Update Item Details</h2>
 <form id="update-item-form">
     <label for="input-item-id">Item ID: </label>
     <select name="update_item_id" id="update_item_id">
         <option value="x">Select ID</option>
         {{#each item_ids}}
-        <option value="{{this.ID}}">{{this.ID}}</option>
+        <option value="{{this.item_id}}">{{this.item_id}}</option>
         {{/each}}
     </select>
 
-    <label for="update_item_name">Item Name:</label>
-    <input type="text" name="update_item_name" id="update_item_name"></select>
+    <label for="update_item_category">Category:</label>
+    <input type="text" name="update_item_category" id="update_item_category"></select>
 
-     <label for="update_item_title">Title:</label>
-    <input type="text" name="update_item_title" id="update_item_title"></select>
+     <label for="update_item_brand">Brand:</label>
+    <input type="text" name="update_item_brand" id="update_item_brand"></select>
+
+     <label for="update_item_price">Price:</label>
+    <input type="number" name="update_item_price" id="update_item_price"></select>
 
 
     <input type="submit">
