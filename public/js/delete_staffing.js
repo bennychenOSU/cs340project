@@ -1,8 +1,8 @@
-function deleteStaffing(customerID) {
+function deleteStaffing(employeeID) {
   // Put our data we want to send in a javascript object
 
   let data = {
-      id: customerID
+      employee_id: employeeID
   };
 
   // Setup our AJAX request
@@ -16,7 +16,7 @@ function deleteStaffing(customerID) {
 
 
           // Add the new data to the table
-          deleteRow(customerID);
+          deleteRow(employeeID);
 
       }
       else if (xhttp.readyState == 4 && xhttp.status != 204) {
@@ -28,13 +28,13 @@ function deleteStaffing(customerID) {
 }
 
 
-function deleteRow(customerID){
+function deleteRow(employeeID){
 
-  let table = document.getElementById("customers-table");
+  let table = document.getElementById("staffings-table");
   for (let i = 0, row; row = table.rows[i]; i++) {
      //iterate through rows
      //rows would be accessed using the "row" variable assigned in the for loop
-     if (table.rows[i].getAttribute("data-value") == customerID) {
+     if (table.rows[i].getAttribute("data-value") == employeeID) {
           table.deleteRow(i);
           break;
      }
