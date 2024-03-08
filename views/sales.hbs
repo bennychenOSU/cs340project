@@ -2,6 +2,17 @@
 Template was sourced from the starter code for Node.js
 https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
 }}
+
+<nav>
+			<a href="/employees">Employees</a>
+			<a href="/customers">Customers</a>
+			<a href="/stores">Stores</a>
+			<a href="/sales">Sales</a>
+			<a href="/items">Items</a>
+			<a href="/staffings">Staffings</a>
+			<a href="/inventories">Inventories</a>
+		  </nav>
+
 <section>
     <table id="sales-table">
         <thead>
@@ -18,11 +29,15 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
         <tbody>
 
             {{#each data}}
-            <tr data-value={{this.ID}}>
-                <td>{{this.ID}}</td>
-                <td>{{this.Name}}</td>
-                <td>{{this.Title}}</td>
-                <td><button onclick="deleteSale({{this.ID}})">Delete</button></td>
+            <tr data-value={{this.sale_id}}>
+                <td>{{this.sale_id}}</td>
+                 <td>{{this.quantity}}</td>
+                <td>{{this.sales_total}}</td>
+                 <td>{{this.store_id}}</td>
+                 <td>{{this.item_id}}</td>
+                <td>{{this.customer_id}}</td>
+                <td>{{this.employee_id}}</td>
+                <td><button onclick="deleteSale({{this.sale_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -35,12 +50,44 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 <p>Add a sale.</p>
 <form id="add-sale-form" method="POST" action="/add-sale-form">
 
+    <label for="add_item_id">Item ID: </label>
+    <select name="add_item_id" id="add_item_id">
+        <option value="">Select Item ID</option>
+        {{#each item_ids}}
+        <option value="{{this.item_id}}">{{this.item_id}}</option>
+        {{/each}}
+    </select>
 
-    <label for="input_name">Name: </label>
-    <input type="text" name="input_name" id="input-name">
+     <label for="add_emplopyee_id">Employee ID: </label>
+    <select name="add_employee_id" id="add_employee_id">
+        <option value="">Select Employee ID</option>
+        {{#each employee_ids}}
+        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
+        {{/each}}
+    </select>
 
-    <label for="input_title">Title: </label>
-    <input type="text" name="input_title" id="input-title">
+    <label for="add_customer_id">Customer ID: </label>
+    <select name="add_customer_id" id="add_customer_id">
+        <option value="">Select Customer ID</option>
+        {{#each employee_ids}}
+        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="add_store_id">Store ID: </label>
+    <select name="add_store_id" id="add_store_id">
+        <option value="">Select Store ID</option>
+        {{#each store_ids}}
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="add_qunatity">Quantity: </label>
+    <input type="number" name="add_quantity" id="add_quantity">
+    <input type="submit">
+
+    <label for="add_total">Sales Total: </label>
+    <input type="number" name="add_total" id="add_total">
     <input type="submit">
 </form>
 
@@ -49,7 +96,7 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
      <select name="search_sale_id" id="search_sale_id">
         <option value="">Select ID</option>
         {{#each sale_ids}}
-        <option value="{{this.ID}}">{{this.ID}}</option>
+        <option value="{{this.sale_id}}">{{this.sale_id}}</option>
         {{/each}}
     </select>
     <input type="submit">
@@ -61,17 +108,50 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 <form id="update-sale-form">
     <label for="input-sale-id">Sale ID: </label>
     <select name="update_sale_id" id="update_sale_id">
-        <option value="x">Select ID</option>
+        <option value="x">Select Sale ID</option>
         {{#each sale_ids}}
-        <option value="{{this.ID}}">{{this.ID}}</option>
+        <option value="{{this.sale_id}}">{{this.sale_id}}</option>
         {{/each}}
     </select>
 
-    <label for="update_sale_name">Sale Name:</label>
-    <input type="text" name="update_sale_name" id="update_sale_name"></select>
+    <label for="update_item_id">Item ID: </label>
+    <select name="update_item_id" id="update_item_id">
+        <option value="">Select Item ID</option>
+        {{#each item_ids}}
+        <option value="{{this.item_id}}">{{this.item_id}}</option>
+        {{/each}}
+    </select>
 
-     <label for="update_sale_title">Title:</label>
-    <input type="text" name="update_sale_title" id="update_sale_title"></select>
+     <label for="update_emplopyee_id">Employee ID: </label>
+    <select name="update_employee_id" id="update_employee_id">
+        <option value="">Select Employee ID</option>
+        {{#each employee_ids}}
+        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update_customer_id">Customer ID: </label>
+    <select name="update_customer_id" id="update_customer_id">
+        <option value="">Select Customer ID</option>
+        {{#each employee_ids}}
+        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update_store_id">Store ID: </label>
+    <select name="update_store_id" id="update_store_id">
+        <option value="">Select Store ID</option>
+        {{#each store_ids}}
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update_qunatity">Quantity: </label>
+    <input type="number" name="update_quantity" id="update_quantity">
+
+    <label for="update_total">Sales Total: </label>
+    <input type="number" name="update_total" id="update_total">
+
 
 
     <input type="submit">
