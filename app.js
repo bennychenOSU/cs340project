@@ -126,6 +126,27 @@ app.post('/add-sale-form', function(req, res){
     })
 });
 
+app.delete("/delete-sale-ajax/", function(req, res, next) {
+    let data = req.body;
+    let saleID = parseInt(data["id"]);
+    let deleteSaleQuery = `DELETE FROM Sales WHERE sale_id = ?`;
+    db.pool.query(deleteSaleQuery, [saleID], function(error, rows, fields) {
+      if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        //console.log(error);
+        res.sendStatus(400);
+        }
+        else
+        {
+            res.sendStatus(204);
+        }
+
+    })
+  });
+
+
+
 
 
 
