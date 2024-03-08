@@ -37,6 +37,113 @@ hbs.handlebars.registerHelper("deleteParams", function(employee_id, store_id) {
 */  
 // app.js
 
+app.get('/stores', function(req, res) {
+    let query1;
+
+    if (req.query.search_store_id === undefined || req.query.search_store_id === "") {
+        query1 = "SELECT * from Stores;"
+    } else {
+        query1 = `SELECT * from Stores WHERE item_id = ${req.query.search_store_id}`
+    }
+
+    let query2 = "SELECT store_id from Stores;"
+
+    db.pool.query(query1, function(error, result, fields) {
+        let stores = result;
+        
+        db.pool.query(query2, (error, result, fields) => {
+            let store_ids = result;
+               
+            res.render('stores', {data: stores, store_ids: store_ids});            
+        })
+    });
+
+});
+
+app.post('/add-store-form', function(req, res){
+
+    
+    let data = req.body;
+
+    console.log("here")
+   
+
+    query1 = `INSERT INTO Stores (city, store_size) VALUES ('${data['add_city']}', '${data['add_size']}')`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        if (error) {
+
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            res.redirect('/stores');
+        }
+    })
+});
+
+app.delete("/delete-store-ajax/", function(req, res, next) {
+    let data = req.body;
+    let storeID = parseInt(data["id"]);
+    let deleteStoreQuery = `DELETE FROM Stores WHERE store_id = ?`;
+    db.pool.query(deleteStoreQuery, [storeID], function(error, rows, fields) {
+      if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        //console.log(error);
+        res.sendStatus(400);
+        }
+        else
+        {
+            res.sendStatus(204);
+        }
+
+    })
+  });
+
+  app.put('/put-store', function(req,res,next){
+    let data = req.body;
+  
+    let id = parseInt(data["id"]);
+    let city = data["city"];
+    let size = parseInt(data["size"]);
+   
+  
+    let query1 = `UPDATE Stores SET city = ?, store_size = ?  WHERE store_id = ?`;
+    let query2 = `SELECT * FROM Stores WHERE store_id = ?`
+  
+          // Run the 1st query
+          db.pool.query(query1, [city, size, id], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else {
+                db.pool.query(query2, [id], function(error, rows, fields) {
+                  if (error) {
+  
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                    } else {
+                      res.send(rows);
+                    }
+                })                    
+                
+              }
+  })});
+  
+
+
+
+
+
 app.get('/items', function(req, res) {
     let query1;
 
