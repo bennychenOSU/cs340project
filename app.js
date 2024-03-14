@@ -148,21 +148,32 @@ app.delete("/delete-sale-ajax/", function(req, res, next) {
     let data = req.body;
 
     console.log(data);
+
+
   
     let sale_id = parseInt(data["sale_id"]);
     let item_id = parseInt(data["item_id"]);
     let quantity = parseInt(data["quantity"]);
     let total = parseInt(data["total"]);
     let employee_id = parseInt(data["employee_id"]);
-    let customer_id = parseInt(data["customer_id"]);
     let store_id = parseInt(data["store_id"]);
+    let customer_id = data["customer_id"];
+
+    let params;
+
+
+    if (customer_id === "None") {
+        params = [item_id, quantity, total, employee_id, null, store_id, sale_id]
+    } else {
+        params = [item_id, quantity, total, employee_id, parseInt(customer_id), store_id, sale_id]
+    }
    
   
     let query1 = `UPDATE Sales SET item_id = ?, quantity = ?, sales_total = ?, employee_id = ?, customer_id = ?, store_id = ?  WHERE sale_id = ?`;
     let query2 = `SELECT * FROM Sales WHERE sale_id = ?`
   
           // Run the 1st query
-          db.pool.query(query1, [item_id, quantity, total, employee_id, customer_id, store_id, sale_id], function(error, rows, fields){
+          db.pool.query(query1, params, function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.

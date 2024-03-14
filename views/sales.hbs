@@ -104,7 +104,7 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 </form>
 
 <section>
-    <h2>Update Sale Title</h2>
+    <h2>Update Sale</h2>
 <form id="update-sale-form">
     <label for="input-sale-id">Sale ID: </label>
     <select name="update_sale_id" id="update_sale_id">
@@ -133,9 +133,10 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
     <label for="update_customer_id">Customer ID: </label>
     <select name="update_customer_id" id="update_customer_id">
         <option value="">Select Customer ID</option>
-        {{#each employee_ids}}
-        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
+        {{#each customer_ids}}
+        <option value="{{this.customer_id}}">{{this.customer_id}}</option>
         {{/each}}
+        <option value="None">None</option>
     </select>
 
     <label for="update_store_id">Store ID: </label>
