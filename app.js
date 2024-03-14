@@ -8,7 +8,7 @@ SETUP
 // Express
 var express = require('express');  
 var app     = express();       
-PORT        = 9123;               
+PORT        = 9121;               
 var db = require('./database/db-connector');
 
 // app.js    
@@ -394,10 +394,6 @@ app.delete("/delete-item-ajax/", function(req, res, next) {
 });
     
                    
-    
-
-
-
 app.get('/employees', function(req, res)
 
     {
@@ -534,6 +530,8 @@ app.post('/add-staffing-form', function(req, res){
 });
 
 
+
+
 app.delete('/delete-staffing-ajax/', function(req,res,next){
    
     
@@ -642,6 +640,118 @@ app.delete('/delete-staffing-ajax/', function(req,res,next){
                       
               }
   })});
+
+  app.get('/customers', function(req, res)
+
+    {
+        let query1;
+
+        if (req.query.search_customer_id === undefined || req.query.search_customer_id === "") {
+            query1 = "SELECT * FROM Customers;"
+        } else {
+            query1 = `SELECT * FROM Customers WHERE customer_id = ${req.query.search_customer_id};`;
+        }
+       
+        let query2 = `SELECT customer_id FROM Customers;`
+
+        db.pool.query(query1, function(error, result, fields) {
+            let customers = result;
+            
+            db.pool.query(query2, (error, result, fields) => {
+                let customer_ids = result;
+
+                   
+                res.render('customers', {data: customers, customer_ids: customer_ids});
+                
+            })
+    
+        });
+
+    });
+
+app.post('/add-customer-form', function(req, res){
+
+    let data = req.body;
+
+  
+    query1 = `INSERT INTO Customers (customer_name, city) VALUES ('${data['input_name']}', '${data['input_city']}')`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        if (error) {
+
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            res.redirect('/customers');
+        }
+    })
+});
+
+app.delete("/delete-customer-ajax/", function(req, res, next) {
+    let data = req.body;
+    let customerID = parseInt(data["id"]);
+    let deleteCustomerQuery = `DELETE FROM Customers WHERE customer_id = ?`;
+    let updateSalesCustomer = `UPDATE Sales SET customer_id = Null WHERE customer_id = ?`
+    db.pool.query(deleteCustomerQuery, [customerID], function(error, rows, fields) {
+      if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+        else
+        {
+            db.pool.query(updateSalesCustomer, [customerID], (error, rows, fields) => {
+                if (error) {
+                    console.log(error)
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+
+    })
+  });
+
+  app.put('/put-customer', function(req,res,next){
+    let data = req.body;
+  
+    let id = parseInt(data["id"]);
+    let name = data["name"];
+    let city = data["city"];
+   
+  
+    let updateCustomerQuery = `UPDATE Customers SET customer_name = ?, city = ?  WHERE customer_id = ?`;
+    let query2 = `SELECT * FROM Customers WHERE customer_id = ?`
+  
+          // Run the 1st query
+          db.pool.query(updateCustomerQuery, [name, city, id], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else {
+                db.pool.query(query2, [id], function(error, rows, fields) {
+                  if (error) {
+  
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                    } else {
+                      res.send(rows);
+                    }
+                })                    
+                
+              }
+  })});
+
     
 
 

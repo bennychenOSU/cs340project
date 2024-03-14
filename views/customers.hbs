@@ -1,0 +1,89 @@
+{{!
+Template was sourced from the starter code for Node.js
+https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+}}
+<nav>
+			<a href="/employees">Employees</a>
+			<a href="/customers">Customers</a>
+			<a href="/stores">Stores</a>
+			<a href="/">Sales</a>
+			<a href="/items">Items</a>
+			<a href="/staffings">Staffings</a>
+			<a href="/inventories">Inventories</a>
+		  </nav>
+<section>
+    <table id="customers-table">
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {{#each data}}
+            <tr data-value={{this.customer_id}}>
+                <td>{{this.customer_id}}</td>
+                <td>{{this.customer_name}}</td>
+                <td>{{this.city}}</td>
+                <td><button onclick="deleteCustomer({{this.customer_id}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <script src="../js/delete_customer.js"></script>
+</section>
+
+
+<h2>Adding Customer</h2>
+<p>Add a customer</p>
+<form id="add-customer-form" method="POST" action="/add-customer-form">
+
+
+    <label for="input_name">Name: </label>
+    <input type="text" name="input_name" id="input-name">
+
+    <label for="input_city">City: </label>
+    <input type="text" name="input_city" id="input-city">
+    <input type="submit">
+</form>
+
+<h2>Search Customer</h2>
+<form id="search-customer-form" method='GET' action='/customers'>
+     <select name="search_customer_id" id="search_customer_id">
+        <option value="">Select ID</option>
+        {{#each customer_ids}}
+        <option value="{{this.customer_id}}">{{this.customer_id}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+    <a href='../customers'><button>Reset</button></a>
+</form>
+
+<section>
+    <h2>Update Customer City</h2>
+<form id="update-customer-form">
+    <label for="input-customer-id">Customer ID: </label>
+    <select name="update_customer_id" id="update_customer_id">
+        <option value="x">Select ID</option>
+        {{#each customer_ids}}
+        <option value="{{this.customer_id}}">{{this.customer_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update_customer_name">Customer Name:</label>
+    <input type="text" name="update_customer_name" id="update_customer_name"></select>
+
+     <label for="update_customer_city">City:</label>
+    <input type="text" name="update_customer_title" id="update_customer_city"></select>
+
+
+    <input type="submit">
+</form>
+<script src="../js/update_customer.js"></script>    
+</section>
