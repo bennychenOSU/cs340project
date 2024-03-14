@@ -22,13 +22,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
 var hbs = exphbs.create({});
-hbs.handlebars.registerHelper("staffingRowID", function(employee_id, store_id) {
-    return employee_id.toString() + store_id.toString();
+hbs.handlebars.registerHelper("rowIDParams", function(id1, id2) {
+    return id1.toString() + id2.toString();
 });
 
-hbs.handlebars.registerHelper("deleteParams", function(employee_id, store_id) {
-    console.log([employee_id, store_id]);
-    return [employee_id, store_id];
+hbs.handlebars.registerHelper("deleteParams", function(id1, id2) {
+    return [id1, id2];
 });  
  
 
@@ -560,13 +559,13 @@ app.delete('/delete-staffing-ajax/', function(req,res,next){
           })
   });
 
-  app.delete("/delete-employee-ajax/", function(req, res, next) {
+app.delete("/delete-employee-ajax/", function(req, res, next) {
     let data = req.body;
     let employeeID = parseInt(data["id"]);
     let deleteEmployeeQuery = `DELETE FROM Employees WHERE employee_id = ?`;
     db.pool.query(deleteEmployeeQuery, [employeeID], function(error, rows, fields) {
-      if (error) {
-  
+        if (error) {
+
         // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
         //console.log(error);
         res.sendStatus(400);
@@ -577,41 +576,41 @@ app.delete('/delete-staffing-ajax/', function(req,res,next){
         }
 
     })
-  });
+    });
 
-  app.put('/put-employee', function(req,res,next){
-    let data = req.body;
-  
-    let id = parseInt(data["id"]);
-    let name = data["name"];
-    let title = data["title"];
-   
-  
-    let updateEmployeeQuery = `UPDATE Employees SET employee_name = ?, title = ?  WHERE employee_id = ?`;
-    let query2 = `SELECT employee_id as ID, employee_name as Name, title as Title FROM Employees WHERE employee_id = ?`
-  
-          // Run the 1st query
-          db.pool.query(updateEmployeeQuery, [name, title, id], function(error, rows, fields){
-              if (error) {
-  
-              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-              console.log(error);
-              res.sendStatus(400);
-              }
-  
-              else {
-                db.pool.query(query2, [id], function(error, rows, fields) {
-                  if (error) {
-  
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                    console.log(error);
-                    res.sendStatus(400);
-                    } else {
-                      res.send(rows);
-                    }
-                })                    
-                
-              }
+    app.put('/put-employee', function(req,res,next){
+        let data = req.body;
+    
+        let id = parseInt(data["id"]);
+        let name = data["name"];
+        let title = data["title"];
+    
+    
+        let updateEmployeeQuery = `UPDATE Employees SET employee_name = ?, title = ?  WHERE employee_id = ?`;
+        let query2 = `SELECT employee_id as ID, employee_name as Name, title as Title FROM Employees WHERE employee_id = ?`
+    
+            // Run the 1st query
+            db.pool.query(updateEmployeeQuery, [name, title, id], function(error, rows, fields){
+                if (error) {
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+                }
+    
+                else {
+                    db.pool.query(query2, [id], function(error, rows, fields) {
+                    if (error) {
+    
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                        } else {
+                        res.send(rows);
+                        }
+                    })                    
+                    
+                }
   })});
   
 
@@ -641,33 +640,33 @@ app.delete('/delete-staffing-ajax/', function(req,res,next){
               }
   })});
 
-  app.get('/customers', function(req, res)
+app.get('/customers', function(req, res)
 
-    {
-        let query1;
+{
+    let query1;
 
-        if (req.query.search_customer_id === undefined || req.query.search_customer_id === "") {
-            query1 = "SELECT * FROM Customers;"
-        } else {
-            query1 = `SELECT * FROM Customers WHERE customer_id = ${req.query.search_customer_id};`;
-        }
-       
-        let query2 = `SELECT customer_id FROM Customers;`
-
-        db.pool.query(query1, function(error, result, fields) {
-            let customers = result;
-            
-            db.pool.query(query2, (error, result, fields) => {
-                let customer_ids = result;
-
-                   
-                res.render('customers', {data: customers, customer_ids: customer_ids});
-                
-            })
+    if (req.query.search_customer_id === undefined || req.query.search_customer_id === "") {
+        query1 = "SELECT * FROM Customers;"
+    } else {
+        query1 = `SELECT * FROM Customers WHERE customer_id = ${req.query.search_customer_id};`;
+    }
     
-        });
+    let query2 = `SELECT customer_id FROM Customers;`
+
+    db.pool.query(query1, function(error, result, fields) {
+        let customers = result;
+        
+        db.pool.query(query2, (error, result, fields) => {
+            let customer_ids = result;
+
+                
+            res.render('customers', {data: customers, customer_ids: customer_ids});
+            
+        })
 
     });
+
+});
 
 app.post('/add-customer-form', function(req, res){
 
@@ -751,6 +750,125 @@ app.delete("/delete-customer-ajax/", function(req, res, next) {
                 
               }
   })});
+
+app.get('/inventories', function(req, res)
+
+    {
+    let query1;
+
+    if (req.query.search_item_id === undefined || req.query.search_item_id === "" 
+    || req.query.search_store_id === undefined || req.query.search_store_id === "") {
+        query1 = "SELECT * FROM Inventories;"
+    } else {
+        query1 = `SELECT * FROM Inventories WHERE item_id = ${req.query.search_item_id} AND store_id = ${req.query.search_store_id};`;
+    }
+
+    let query2 = `SELECT item_id FROM Inventories;`
+    let query3 = `SELECT store_id FROM Inventories;`
+
+    db.pool.query(query1, function(error, result, fields) {
+        let inventories = result;
+        
+        db.pool.query(query2, (error, result, fields) => {
+
+            if (error) {
+                console.log(error);
+            } else {
+                let item_ids = result;
+                db.pool.query(query3, (error, result, fields) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        let store_ids = result;
+                        res.render('inventories', {data: inventories, item_ids: item_ids, store_ids: store_ids});
+            
+                    }
+                })
+
+            }
+        })
+
+    });
+
+});
+
+app.post('/add-inventory-form', function(req, res){
+
+    let data = req.body;
+
+  
+    query1 = `INSERT INTO Inventories (item_id, store_id, quantity) VALUES ('${data['add_item_id']}', '${data['add_store_id']}', '${data["add_quantity"]}')`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        if (error) {
+
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else
+        {
+            res.redirect('/inventories');
+        }
+    })
+});
+
+app.delete("/delete-inventory-ajax/", function(req, res, next) {
+    let data = req.body;
+    let itemID = parseInt(data["item_id"]);
+    let storeID = parseInt(data["store_id"]);
+    let deleteInventoryQuery = `DELETE FROM Inventories WHERE item_id = ? AND store_id = ?`;
+    db.pool.query(deleteInventoryQuery, [itemID, storeID], function(error, rows, fields) {
+      if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        //console.log(error);
+        res.sendStatus(400);
+        }
+        else
+        {
+            res.sendStatus(204);
+        }
+
+    })
+  });
+
+app.put('/put-inventory', function(req,res,next){
+    let data = req.body;
+
+    let item_id = parseInt(data["item_id"]);
+    let  store_id = parseInt(data["store_id"]);
+    let quantity = parseInt(data["quantity"]);
+
+
+    let updateInventoryQuery = `UPDATE Inventories SET quantity = ?  WHERE item_id = ? AND store_id = ?`;
+    let query2 = `SELECT * FROM Inventories WHERE item_id = ? AND store_id = ?`
+
+            // Run the 1st query
+            db.pool.query(updateInventoryQuery, [quantity, item_id, store_id], function(error, rows, fields){
+                if (error) {
+
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+                }
+
+                else {
+                db.pool.query(query2, [item_id, store_id], function(error, rows, fields) {
+                    if (error) {
+
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })                    
+                
+                }
+})});
+
 
     
 

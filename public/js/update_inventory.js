@@ -7,21 +7,21 @@ updateInventoryForm.addEventListener("submit", function (e) {
 
     e.preventDefault();
 
-    let id = document.getElementById("update-item-id");
-    let store = document.getElementById("update-store-id");
-    let quantity = document.getElementById("update-quantity")
+    let id = document.getElementById("update_item_id");
+    let store = document.getElementById("update_store_id");
+    let quantity = document.getElementById("update_quantity")
 
     let idValue = id.value;
     let storeIDValue = store.value;
     let quantityValue = parseInt(quantity.value);
     
-    if (idValue === undefined || storeIDValue === undefined || quantityValue === undefined || priceValue === undefined) 
+    if (idValue === undefined || storeIDValue === undefined || quantityValue === undefined) 
     {
         return;
     }
     let data = {
        item_id: idValue,
-       store: storeIDValue,
+       store_id: storeIDValue,
        quantity: quantityValue
     }
 
@@ -31,7 +31,7 @@ updateInventoryForm.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            updateRow(xhttp.response, item_id);
+            updateRow(xhttp.response, idValue.toString() + storeIDValue.toString());
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -43,20 +43,18 @@ updateInventoryForm.addEventListener("submit", function (e) {
 })
 
 
-function updateRow(data, itemID){
+function updateRow(data, ID){
     let parsedData = JSON.parse(data);
     
     let table = document.getElementById("inventory-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
       
-       if (table.rows[i].getAttribute("data-value") == itemID) {
+       if (table.rows[i].getAttribute("data-value") == ID) {
 
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            let store_td = updateRowIndex.getElementsByTagName("td")[1];
             let quantity_td = updateRowIndex.getElementsByTagName("td")[2];
 
-            store_td.innerHTML = parsedData[0].store; 
             quantity_td.innerHTML = parsedData[0].quantity; 
        }
     }

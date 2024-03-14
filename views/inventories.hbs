@@ -27,11 +27,11 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
         <tbody>
 
             {{#each data}}
-            <tr data-value={{this.item_id}}>
+            <tr data-value={{rowIDParams this.item_id this.store_id}}>
                 <td>{{this.item_id}}</td>
                 <td>{{this.store_id}}</td>
                 <td>{{this.quantity}}</td>
-                <td><button onclick="deleteInventory({{this.item_id}})">Delete</button></td>
+                <td><button onclick="deleteInventory({{rowIDParams this.item_id this.store_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -45,20 +45,43 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 <form id="add-inventory-form" method="POST" action="/add-inventory-form">
 
     <label for="add_store_ID">Store ID: </label>
-    <input type="text" name="add_store_ID" id="add_store_ID">
+   <label for="add_item_id">Item ID: </label>
+    <select name="add_item_id" id="add_item_id">
+        <option value="">Select Item ID</option>
+        {{#each item_ids}}
+        <option value="{{this.item_id}}">{{this.item_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="add_store_id">Store ID: </label>
+    <select name="add_store_id" id="add_store_id">
+        <option value="">Select Store ID</option>
+        {{#each store_ids}}
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
+        {{/each}}
+    </select>
 
     <label for="add_quantity">Quantity: </label>
-    <input type="text" name="add_quantity" id="add_quantity">
+    <input type="number" name="add_quantity" id="add_quantity">
 
     <input type="submit">
 </form>
 
 <h2>Search Inventory</h2>
 <form id="search-inventory-form" method='GET' action='/inventories'>
-     <select name="search_inventory_id" id="search_inventory_id">
-        <option value="">Select ID</option>
+    <label for="search_item_id">Item ID: </label>
+     <select name="search_item_id" id="search_item_id">
+        <option value="">Select Item ID</option>
         {{#each item_ids}}
         <option value="{{this.item_id}}">{{this.item_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="search_store_id">Store ID: </label>
+    <select name="search_store_id" id="search_store_id">
+        <option value="">Select Store ID</option>
+        {{#each store_ids}}
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
         {{/each}}
     </select>
     <input type="submit">
@@ -69,15 +92,20 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
     <h2>Update Inventory Details</h2>
 <form id="update-inventory-form">
     <label for="input-inventory-id">Inventory ID: </label>
-    <select name="update_inventory_id" id="update_inventory_id">
+    <select name="update_item_id" id="update_item_id">
         <option value="x">Select ID</option>
         {{#each item_ids}}
         <option value="{{this.item_id}}">{{this.item_id}}</option>
         {{/each}}
     </select>
 
-    <label for="update_store_id">Store ID:</label>
-    <input type="text" name="update_store_id" id="update_store_id"></select>
+    <label for="update_store_id">Store ID: </label>
+    <select name="update_store_id" id="update_store_id">
+        <option value="">Select Store ID</option>
+        {{#each store_ids}}
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
+        {{/each}}
+    </select>
 
      <label for="update_quantity">Quantity:</label>
     <input type="text" name="update_quantity" id="update_quantity"></select>
