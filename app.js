@@ -81,6 +81,7 @@ app.get('/', function(req, res) {
                                                     console.log(error);
                                                 } else {
                                                     let store_ids = result;
+                                                    
                                                     res.render('sales', {data: data, sale_ids: sale_ids, item_ids: item_ids, employee_ids: employee_ids, customer_ids: customer_ids, store_ids: store_ids})
                                                 }
 
@@ -105,8 +106,6 @@ app.post('/add-sale-form', function(req, res){
     
     let data = req.body;
 
-    console.log("here")
-   
 
     query1 = `INSERT INTO Sales (item_id, quantity, sales_total, employee_id, customer_id, store_id) VALUES ('${data['add_item_id']}', '${data['add_quantity']}', '${data['add_total']}', '${data['add_employee_id']}', '${data['add_customer_id']}', '${data['add_store_id']}')`;
 
@@ -220,8 +219,6 @@ app.post('/add-store-form', function(req, res){
 
     
     let data = req.body;
-
-    console.log("here")
    
 
     query1 = `INSERT INTO Stores (city, store_size) VALUES ('${data['add_city']}', '${data['add_size']}')`;
@@ -328,8 +325,6 @@ app.post('/add-item-form', function(req, res){
     
     let data = req.body;
 
-    console.log("here")
-   
 
     query1 = `INSERT INTO Items (category, brand, price) VALUES ('${data['add_item_category']}', '${data['add_item_brand']}', '${data['add_item_price']}')`;
 
