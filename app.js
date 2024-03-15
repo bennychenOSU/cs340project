@@ -146,10 +146,6 @@ app.delete("/delete-sale-ajax/", function(req, res, next) {
 
   app.put('/put-sale', function(req,res,next){
     let data = req.body;
-
-    console.log(data);
-
-
   
     let sale_id = parseInt(data["sale_id"]);
     let item_id = parseInt(data["item_id"]);
@@ -475,10 +471,10 @@ app.get('/staffings', function(req, res)
     {
         let query1;
 
-        if (req.query.search_employee_id === undefined) {
+        if (req.query.search_staff_id === undefined || req.query.search_staff_id === "") {
             query1 = "SELECT * FROM Staffings;"
         } else {
-            query1 = `SELECT * FROM Staffings WHERE employee_id = ${req.query.search_employee_id}`;
+            query1 = `SELECT * FROM Staffings WHERE employee_id = ${req.query.search_staff_id}`;
         }
        
         let query2 = `SELECT employee_id FROM Employees`;
@@ -501,28 +497,22 @@ app.get('/staffings', function(req, res)
 
     // app.js
 
-app.post('/add-staffing-form', function(req, res){
+app.post('/add-staff-form', function(req, res){
     
     let data = req.body;
 
-    let employee_id = parseInt(data['input-employee-id']);
-    if (isNaN(employee_id))
-    {
-        return;
-    }
+    let employee_id = parseInt(data['add_employee_id']);
 
-    let store_id = parseInt(data['input-store-id']);
-    if (isNaN(store_id))
-    {
-        return;
-    }
 
-    let hours_worked = parseInt(data['input-hours']);
+    let store_id = parseInt(data['add_store_id']);
+  
+
+    let hours_worked = parseInt(data['add_hours']);
     if (isNaN(hours_worked)) {
         hours_worked = 0
     }
 
-    query1 = `INSERT INTO Staffings (employee_id, store_id, hours_worked) VALUES ('${data['input-employee_id']}', '${data['input-store-id']}', ${hours_worked})`;
+    query1 = `INSERT INTO Staffings (employee_id, store_id, hours_worked) VALUES (${employee_id}, ${store_id}, ${hours_worked})`;
 
     db.pool.query(query1, function(error, rows, fields){
 
@@ -534,7 +524,7 @@ app.post('/add-staffing-form', function(req, res){
 
         else
         {
-            res.redirect('/');
+            res.redirect('/staffings');
         }
     })
 });
@@ -551,7 +541,7 @@ app.delete('/delete-staffing-ajax/', function(req,res,next){
     let store_id = parseInt(data.store_id); 
 
     
-    let deleteStaffing = `DELETE FROM Staffing WHERE employee_id = ? AND store_id = ?`;
+    let deleteStaffing = `DELETE FROM Staffings WHERE employee_id = ? AND store_id = ?`;
   
   
           // Run the 1st query
@@ -608,7 +598,7 @@ app.delete("/delete-employee-ajax/", function(req, res, next) {
                 console.log(error);
                 res.sendStatus(400);
                 }
-    
+
                 else {
                     db.pool.query(query2, [id], function(error, rows, fields) {
                     if (error) {
@@ -625,17 +615,19 @@ app.delete("/delete-employee-ajax/", function(req, res, next) {
   })});
   
 
-  app.put('/update-staffing', function(req,res,next){
+  app.put('/put-staffing', function(req,res,next){
     let data = req.body;
   
-    let employee_id = parseInt(data.employee_id);
-    let store_id= parseInt(data.store_id);
+    let employee_id = parseInt(data.employeeID);
+    let store_id= parseInt(data.storeID);
     let hours = parseInt(data.hours);
   
-    let query1 = `UPDATE Staffing SET hours = ? WHERE employee_id = ? AND store_id = ? and hours = ?`;
-    let selectWorld = `SELECT * FROM employees WHERE id = ?`
+    let query1 = `UPDATE Staffings SET hours_worked = ? WHERE employee_id = ? AND store_id = ?`;
+    let query2 = `SELECT * FROM Staffings WHERE employee_id = ? AND store_id = ?`;
+
+
   
-          db.pool.query(query1, [employee_id, store_id, hours], function(error, rows, fields){
+          db.pool.query(query1, [hours, employee_id, store_id], function(error, rows, fields){
               if (error) {
   
               console.log(error);
@@ -645,8 +637,13 @@ app.delete("/delete-employee-ajax/", function(req, res, next) {
         
               else
               {
-        
-                res.send(rows);
+                db.pool.query(query2, [employee_id, store_id], (error, rows, fields) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        res.send(rows);
+                    }
+                })
                       
               }
   })});

@@ -27,11 +27,11 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
         <tbody>
 
             {{#each data}}
-            <tr data-value={{this.employee_id}}>
+            <tr data-value={{rowIDParams this.employee_id this.store_id}}>
                 <td>{{this.employee_id}}</td>
                 <td>{{this.store_id}}</td>
                 <td>{{this.hours_worked}}</td>
-                <td><button onclick="deleteStaffing({{this.employee_id}})">Delete</button></td>
+                <td><button onclick="deleteStaffing({{rowIDParams this.employee_id this.store_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -45,14 +45,25 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
 <form id="add-staff-form" method="POST" action="/add-staff-form">
 
 
-    <label for="add_staff_name">Employee Name: </label>
-    <input type="text" name="add_staff_name" id="add_staff_name">
+    <label for="add_employee_id">Employee ID: </label>
+    <select name="add_employee_id" id="add_employee_id">
+        <option value="">Select Employee ID</option>
+        {{#each employee_ids}}
+        <option value="{{this.employee_id}}">{{this.employee_id}}</option>
+        {{/each}}
+    </select>
+    
 
     <label for="add_store_id">Store ID: </label>
-    <input type="text" name="add_store_id" id="add_store_id">
+    <select name="add_store_id" id="add_store_id">
+        <option value="">Select Store ID</option>
+        {{#each store_ids}}
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
+        {{/each}}
+    </select>
 
     <label for="add_hours">Hours Worked: </label>
-    <input type="text" name="add_hours" id="add_hours">
+    <input type="number" name="add_hours" id="add_hours">
 
     <input type="submit">
 </form>
@@ -73,7 +84,7 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
     <h2>Update Staff Details</h2>
 <form id="update-staff-form">
     <label for="input-staff-id">Staff ID: </label>
-    <select name="update_staff_id" id="update_staff_id">
+    <select name="update_employee_id" id="update_employee_id">
         <option value="x">Select ID</option>
         {{#each employee_ids}}
         <option value="{{this.employee_id}}">{{this.employee_id}}</option>
@@ -81,9 +92,14 @@ https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%2
     </select>
 
     <label for="update_store_id">Store ID:</label>
-    <input type="text" name="update_store_id" id="update_store_id"></select>
+    <select name="update_store_id" id="update_store_id">
+        <option value="">Select Store ID</option>
+        {{#each store_ids}}
+        <option value="{{this.store_id}}">{{this.store_id}}</option>
+        {{/each}}
+    </select>
 
-     <label for="update_hours">hours_worked:</label>
+     <label for="update_hours">Hours Worked:</label>
     <input type="text" name="update_hours" id="update_hours"></select>
 
     <input type="submit">

@@ -6,21 +6,21 @@ updateEmployeeForm.addEventListener("submit", function (e) {
 
     e.preventDefault();
 
-    let employee_id = document.getElementById("update-staff-id");
-    let store_id = document.getElementById("update-store-id");
+    let employee_id = document.getElementById("update_employee_id");
+    let store_id = document.getElementById("update_store_id");
 
     let employeeIDValue = employee_id.value;
     let storeIDValue = store_id.value;
-    let hours = document.getElementById("update-hours").value;
+    let hours = document.getElementById("update_hours").value;
     
-    if (employeeIDValue === undefined || storeIDValue === undefined || hours === undefined || priceValue === undefined) 
+    if (employeeIDValue === undefined || storeIDValue === undefined || hours === undefined) 
     {
         return;
     }
     let data = {
        employeeID: employeeIDValue,
        storeID: storeIDValue,
-       hours: hoursValue
+       hours: hours
     }
 
     var xhttp = new XMLHttpRequest();
@@ -29,7 +29,7 @@ updateEmployeeForm.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            updateRow(xhttp.response, employeeID);
+            updateRow(xhttp.response, employeeIDValue.toString() + storeIDValue.toString());
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -41,21 +41,21 @@ updateEmployeeForm.addEventListener("submit", function (e) {
 })
 
 
-function updateRow(data, employee_ID){
+function updateRow(data, ID){
     let parsedData = JSON.parse(data);
     
     let table = document.getElementById("staffings-table");
 
+    console.log(parsedData[0]);
+
     for (let i = 0, row; row = table.rows[i]; i++) {
       
-       if (table.rows[i].getAttribute("data-value") == employee_ID) {
+       if (table.rows[i].getAttribute("data-value") == ID) {
 
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            let store_td = updateRowIndex.getElementsByTagName("td")[1];
             let hours_td = updateRowIndex.getElementsByTagName("td")[2];
 
-            store_td.innerHTML = parsedData[0].storeID; 
-            hours_td.innerHTML = parsedData[0].hours; 
+            hours_td.innerHTML = parsedData[0].hours_worked; 
        }
     }
 }
