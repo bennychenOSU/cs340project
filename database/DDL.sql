@@ -57,7 +57,7 @@ CREATE TABLE Sales (
     PRIMARY KEY(sale_id),
     CONSTRAINT FK_Sales_store_id FOREIGN KEY(store_id) REFERENCES Stores(store_id) ON DELETE CASCADE,
     CONSTRAINT FK_Items_item_id FOREIGN KEY(item_id) REFERENCES Items(item_id) ON DELETE CASCADE,
-    CONSTRAINT FK_Customers_customer_id FOREIGN KEY(customer_id) REFERENCES Customers(customer_id),
+    CONSTRAINT FK_Customers_customer_id FOREIGN KEY(customer_id) REFERENCES Customers(customer_id) ON DELETE SET NULL,
     CONSTRAINT FK_Employees_employee_id FOREIGN KEY(employee_id) REFERENCES Employees(employee_id) ON DELETE CASCADE
 );
 
